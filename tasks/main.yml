@@ -1,0 +1,69 @@
+- name: Include OS specific variables
+  include_vars: "{{ item }}"
+  with_first_found:
+    - "{{ ansible_distribution }}.yml"
+    - "{{ ansible_os_family }}.yml"
+
+- name: Install Packages
+  package:
+    name: "{{aminer_packages}}"
+    state: latest
+
+- name: Install Tools
+  package:
+    name: "{{aminer_tools}}"
+    state: latest
+
+
+- name: Git clone OpenSource-Aminer
+  git:
+    repo: "{{aminer_gitrepo}}"
+    dest: "{{aminer_repopath}}"
+
+- name: Synchronize Aminer-etc
+  synchronize:
+    src: "{{aminer_repopath}}/source/root/etc/aminer/"
+    dest: "/etc/aminer/"
+
+- name: Synchronize Aminer-etcinit
+  synchronize:
+    src: "{{aminer_repopath}}/source/root/etc/init/"
+    dest: "/etc/init/"
+
+- name: Synchronize Aminer-systemd-service
+  synchronize:
+    src: "{{aminer_repopath}}/source/root/lib/systemd/system/aminer.service"
+    dest: "{{aminer_systemdloc}}"
+
+- name: Synchronize Aminer-libdir
+  synchronize:
+    src: "{{aminer_repopath}}/source/root/usr/lib/logdata-anomaly-miner/"
+    dest: "/usr/lib/logdata-anomaly-miner/"
+
+- name: Synchronize Aminer-docs
+  synchronize:
+    src: "{{aminer_repopath}}/source/root/usr/share/doc/aminer/"
+    dest: "/usr/share/doc/aminer/"
+
+- name: Create aminer-user
+  user:
+    name: "{{aminer_user}}"
+    shell: "{{aminer_usershell}}"
+
+- name: Create var-dir
+  file:
+    path: "{{aminer_vardir}}"
+    owner: "{{aminer_user}}"
+    group: "{{aminer_group}}"
+    mode: "0700"
+    state: "directory"
+
+- name: Create Aminer-Link
+  file:
+    src: "/usr/lib/logdata-anomaly-miner/AMiner"
+    dest: "/usr/bin/AMiner"
+    state: "link"
+
+- name: Run RedHat Tasks
+  include: RedHat.yml
+  when: ansible_os_family == 'RedHat'
