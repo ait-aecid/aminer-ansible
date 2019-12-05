@@ -1,0 +1,6 @@
+aminer_packages:
+        - epel-release
+        - python34
+        - python36
+        - python36-pip
+aminer_usershell: /sbin/nologin

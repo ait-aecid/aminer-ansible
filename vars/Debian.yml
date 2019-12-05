@@ -1,0 +1,4 @@
+aminer_packages:
+        - python3
+        - python3-pip
+aminer_usershell: /usr/sbin/nologin
