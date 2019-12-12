@@ -19,6 +19,7 @@
   git:
     repo: "{{aminer_gitrepo}}"
     dest: "{{aminer_repopath}}"
+  when: aminer_gitrepo != False
 
 - name: Synchronize Aminer-etc
   synchronize:
