@@ -12,6 +12,19 @@
          - aminer
 ```
 
+The following playbook can be used for development. If aminer_gitrepo is false, this role will not pull from the git repository.
+
+```
+- hosts: localhost
+  vars:
+    aminer_gitrepo: False
+    aminer_repopath: "/home/developer/aminer"
+  roles:
+         - aminer
+
+```
+
+
 
 # Defaults
 ```
