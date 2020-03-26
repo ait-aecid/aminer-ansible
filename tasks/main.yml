@@ -71,6 +71,13 @@
     dest: /etc/aminer/conf-enabled/yaml
     state: link
 
+- name: link python3-tz
+  file:
+    src: /usr/lib/python3/dist-packages/pytz
+    dest: /etc/aminer/conf-enabled/pytz
+    state: link
+
+
 - name: Run RedHat Tasks
   include: RedHat.yml
   when: ansible_os_family == 'RedHat'
