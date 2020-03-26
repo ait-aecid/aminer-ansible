@@ -65,6 +65,12 @@
     dest: "/usr/bin/AMiner"
     state: "link"
 
+- name: link python3-yaml
+  file:
+    src: /usr/lib/python3/dist-packages/yaml
+    dest: /etc/aminer/conf-enabled/yaml
+    state: link
+
 - name: Run RedHat Tasks
   include: RedHat.yml
   when: ansible_os_family == 'RedHat'
