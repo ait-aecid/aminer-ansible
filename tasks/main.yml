@@ -64,6 +64,13 @@
     src: "/usr/lib/logdata-anomaly-miner/AMiner"
     dest: "/usr/bin/AMiner"
     state: "link"
+ 
+- name: Set aminer permissions
+  file:
+    path: "/usr/lib/logdata-anomaly-miner/AMiner"
+    owner: root
+    group: root
+    mode: 0755
 
 - name: link python3-yaml
   file:
