@@ -3,4 +3,5 @@ aminer_packages:
         - python3-pip
         - python3-tz
         - python3-scipy
+        - python3-pkg-resources
 aminer_usershell: /usr/sbin/nologin
