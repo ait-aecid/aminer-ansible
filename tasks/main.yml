@@ -23,26 +23,36 @@
 
 - name: Synchronize Aminer-etc
   synchronize:
+    group: no
+    owner: no
     src: "{{aminer_repopath}}/source/root/etc/aminer/"
     dest: "/etc/aminer/"
 
 - name: Synchronize Aminer-etcinit
   synchronize:
+    group: no
+    owner: no
     src: "{{aminer_repopath}}/source/root/etc/init/"
     dest: "/etc/init/"
 
 - name: Synchronize Aminer-systemd-service
   synchronize:
+    group: no
+    owner: no
     src: "{{aminer_repopath}}/source/root/lib/systemd/system/aminer.service"
     dest: "{{aminer_systemdloc}}"
 
 - name: Synchronize Aminer-libdir
   synchronize:
+    group: no
+    owner: no
     src: "{{aminer_repopath}}/source/root/usr/lib/logdata-anomaly-miner/"
     dest: "/usr/lib/logdata-anomaly-miner/"
 
 - name: Synchronize Aminer-docs
   synchronize:
+    group: no
+    owner: no
     src: "{{aminer_repopath}}/source/root/usr/share/doc/aminer/"
     dest: "/usr/share/doc/aminer/"
 
