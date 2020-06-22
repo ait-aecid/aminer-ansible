@@ -46,8 +46,8 @@
   synchronize:
     group: no
     owner: no
-    src: "{{aminer_repopath}}/source/root/usr/share/doc/aminer/"
-    dest: "/usr/share/doc/aminer/"
+    src: "{{aminer_repopath}}/source/root/usr/share/doc/"
+    dest: "/usr/share/doc/"
 
 - name: Create aminer-user
   user:
