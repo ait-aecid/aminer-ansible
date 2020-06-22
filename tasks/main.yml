@@ -28,13 +28,6 @@
     src: "{{aminer_repopath}}/source/root/etc/aminer/"
     dest: "/etc/aminer/"
 
-- name: Synchronize Aminer-etcinit
-  synchronize:
-    group: no
-    owner: no
-    src: "{{aminer_repopath}}/source/root/etc/init/"
-    dest: "/etc/init/"
-
 - name: Synchronize Aminer-systemd-service
   synchronize:
     group: no
