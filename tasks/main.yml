@@ -103,6 +103,16 @@
     dest: /etc/aminer/conf-enabled/pytz
     state: link
 
+- name: create man-page for AMiner
+  shell:
+    cmd: xsltproc --output /usr/share/man/man1/AMiner.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/AMiner.1.xml && gzip /usr/share/man/man1/AMiner.1
+    creates: /usr/share/man/man1/AMiner.1.gz
+
+- name: create man-page for AMinerRemoteControl
+  shell:
+    cmd: xsltproc --output /usr/share/man/man1/AMinerRemoteControl.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/AMinerRemoteControl.1.xml && gzip /usr/share/man/man1/AMinerRemoteControl.1
+    creates: /usr/share/man/man1/AMinerRemoteControl.1.gz
+
 
 - name: Run RedHat Tasks
   include: RedHat.yml
