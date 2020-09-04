@@ -5,6 +5,7 @@ aminer_packages:
         - python3-scipy
         - python3-pkg-resources
         - python3-setuptools
+        - python3-dateutil
         - xsltproc
         - docbook-xsl
         - gzip
