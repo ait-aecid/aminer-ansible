@@ -103,6 +103,18 @@
     dest: /etc/aminer/conf-enabled/pytz
     state: link
 
+- name: link python3-dateutil
+  file:
+    src: /usr/lib/python3/dist-packages/dateutil
+    dest: /etc/aminer/conf-enabled/dateutil
+    state: link
+
+- name: link python3-six
+  file:
+    src: /usr/lib/python3/dist-packages/six.py
+    dest: /etc/aminer/conf-enabled/six.py
+    state: link
+
 - name: create man-page for AMiner
   shell:
     cmd: xsltproc --output /usr/share/man/man1/AMiner.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/AMiner.1.xml && gzip /usr/share/man/man1/AMiner.1
