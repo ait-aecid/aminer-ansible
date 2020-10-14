@@ -67,6 +67,12 @@
     src: "/usr/lib/logdata-anomaly-miner/aminer.py"
     dest: "/usr/bin/aminer"
     state: "link"
+
+- name: Create Aminer-Link stable # TODO - remove after next AMiner release
+  file:
+    src: "/usr/lib/logdata-anomaly-miner/aminer.py"
+    dest: "/usr/bin/AMiner"
+    state: "link"
  
 - name: Set aminer permissions
   file:

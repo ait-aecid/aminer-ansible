@@ -10,8 +10,4 @@ aminer_packages:
         - xsltproc
         - docbook-xsl
         - gzip
-        - exim4
-        - procps
-        - cpulimit
-        - mailutils
 aminer_usershell: /usr/sbin/nologin
