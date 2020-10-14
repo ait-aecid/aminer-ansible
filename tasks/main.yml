@@ -64,13 +64,19 @@
 
 - name: Create Aminer-Link
   file:
-    src: "/usr/lib/logdata-anomaly-miner/AMiner"
+    src: "/usr/lib/logdata-anomaly-miner/aminer.py"
+    dest: "/usr/bin/aminer"
+    state: "link"
+
+- name: Create Aminer-Link stable # TODO - remove after next AMiner release
+  file:
+    src: "/usr/lib/logdata-anomaly-miner/aminer.py"
     dest: "/usr/bin/AMiner"
     state: "link"
  
 - name: Set aminer permissions
   file:
-    path: "/usr/lib/logdata-anomaly-miner/AMiner"
+    path: "/usr/lib/logdata-anomaly-miner/aminer.py"
     owner: root
     group: root
     mode: 0755
@@ -80,10 +86,35 @@
     name: cerberus
     executable: pip3
 
-- name: Link cerberus
-  shell:
-    cmd: find /usr/local/ -name cerberus -exec ln -s {} /etc/aminer/conf-enabled/cerberus \;
-    creates: /etc/aminer/conf-enabled/cerberus
+- name: Install python3-kafka
+  pip:
+    name: kafka-python
+    executable: pip3
+    state: latest
+
+- name: Link python3-cerberus
+  file:
+    src: /usr/lib/python3.6/site-packages/cerberus
+    dest: /etc/aminer/conf-enabled/cerberus
+    state: link
+
+- name: Link kafka
+  file:
+    src: /usr/lib/python3.6/site-packages/kafka
+    dest: /etc/aminer/conf-enabled/kafka
+    state: link
+
+- name: Link scipy
+  file:
+    src: /usr/lib/python3/dist-packages/scipy
+    dest: /etc/aminer/conf-enabled/scipy
+    state: link
+
+- name: Link numpy
+  file:
+    src: /usr/lib/python3/dist-packages/numpy
+    dest: /etc/aminer/conf-enabled/numpy
+    state: link
 
 - name: link python3-pkg_resources
   file:
@@ -117,13 +148,13 @@
 
 - name: create man-page for AMiner
   shell:
-    cmd: xsltproc --output /usr/share/man/man1/AMiner.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/AMiner.1.xml && gzip /usr/share/man/man1/AMiner.1
-    creates: /usr/share/man/man1/AMiner.1.gz
+    cmd: xsltproc --output /usr/share/man/man1/aminer.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminer.1.xml && gzip /usr/share/man/man1/aminer.1
+    creates: /usr/share/man/man1/aminer.1.gz
 
-- name: create man-page for AMinerRemoteControl
+- name: create man-page for aminerRemoteControl
   shell:
-    cmd: xsltproc --output /usr/share/man/man1/AMinerRemoteControl.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/AMinerRemoteControl.1.xml && gzip /usr/share/man/man1/AMinerRemoteControl.1
-    creates: /usr/share/man/man1/AMinerRemoteControl.1.gz
+    cmd: xsltproc --output /usr/share/man/man1/aminerRemoteControl.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminerRemoteControl.1.xml && gzip /usr/share/man/man1/aminerRemoteControl.1
+    creates: /usr/share/man/man1/aminerRemoteControl.1.gz
 
 
 - name: Run RedHat Tasks
