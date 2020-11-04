@@ -91,6 +91,7 @@
   pip:
     name: cerberus
     executable: pip3
+    state: latest
 
 - name: Install python3-kafka
   pip:
@@ -100,12 +101,13 @@
 
 - name: Link python3-cerberus
   shell:
-    cmd: find /usr/local/ -name cerberus -exec ln -s {} /etc/aminer/conf-enabled/cerberus \;
+    cmd: find /usr/local/ -name cerberus -type d -exec ln -s {} /etc/aminer/conf-enabled/cerberus \;
     creates: /etc/aminer/conf-enabled/cerberus
+
 
 - name: Link kafka
   shell:
-    cmd: find /usr/local/ -name kafka -exec ln -s {} /etc/aminer/conf-enabled/kafka \;
+    cmd: find /usr/local/ -name kafka -type d -exec ln -s {} /etc/aminer/conf-enabled/kafka \;
     creates: /etc/aminer/conf-enabled/kafka
 
 - name: Link scipy
@@ -113,6 +115,7 @@
     src: /usr/lib/python3/dist-packages/scipy
     dest: /etc/aminer/conf-enabled/scipy
     state: link
+
 
 - name: Link numpy
   file:
