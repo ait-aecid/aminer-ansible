@@ -110,6 +110,14 @@
     cmd: find /usr/local/ -name kafka -type d -exec ln -s {} /etc/aminer/conf-enabled/kafka \;
     creates: /etc/aminer/conf-enabled/kafka
 
+- name: find dateutil
+  shell: find / -name dateutil 2>/dev/null
+  register: shell_result
+
+- debug:
+        var: shell_result.stdout_lines
+
+
 - name: Link scipy
   file:
     src: "{{aminer_pythonpath}}/scipy"
@@ -127,6 +135,8 @@
 - name: Print pythonpath
   debug:
         var: aminer_pythonpath
+
+
 
 
 - name: link python3-pkg_resources
