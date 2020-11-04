@@ -124,7 +124,7 @@
     state: link
 
 - name: list pkg_resources
-  shell: ls -ld /usr/lib/python3/dist-packages/pkg_resources
+  shell: ls -ld /usr/lib/python3/dist-packages/*
   register: shell_result
 
 - debug:
