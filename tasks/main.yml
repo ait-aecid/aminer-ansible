@@ -107,7 +107,7 @@
 
 
 - name: Link kafka
-  shell:
+  file:
     src: "{{aminer_pippath}}/kafka"
     dest: /etc/aminer/conf-enabled/kafka
     state: link
