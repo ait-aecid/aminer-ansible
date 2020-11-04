@@ -125,7 +125,7 @@
 
 - name: link python3-pkg_resources
   file:
-    src: /usr/lib/python3/dist-packages/pkg_resources/
+    src: /usr/lib/python3/dist-packages/pkg_resources
     dest: /etc/aminer/conf-enabled/pkg_resources
     state: link
 
