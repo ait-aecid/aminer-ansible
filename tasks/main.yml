@@ -112,85 +112,50 @@
 
 - name: Link scipy
   file:
-    src: /usr/lib/python3/dist-packages/scipy
+    src: "{{aminer_pythonpath}}/scipy"
     dest: /etc/aminer/conf-enabled/scipy
     state: link
 
 
 - name: Link numpy
   file:
-    src: /usr/lib/python3/dist-packages/numpy
+    src: "{{aminer_pythonpath}}/numpy"
     dest: /etc/aminer/conf-enabled/numpy
     state: link
 
-- debug:
-        var: aminer_packages
 
-- name: dpkg --get-selections 
-  shell: dpkg --get-selections | grep python3-pkg-resources
-  register: shell_result
-
-- debug:
-        var: shell_result.stdout_lines
-
-
-- name: dpkg python3-pkg_resources
-  shell: dpkg -L python3-pkg-resources
-  register: shell_result
-
-- debug:
-        var: shell_result.stdout_lines
-
-- name: find pkg_resources
-  shell: find / -name pkg_resources -type d 2> /dev/null
-  register: shell_result
-
-- debug:
-        var: shell_result.stdout_lines
-
-
-- name: list pkg_resources
-  shell: ls -ld /usr/lib/python3/dist-packages/*
-  register: shell_result
-
-- debug:
-        var: shell_result.stdout_lines
-
-- name: list /etc/aminer/conf-enabled
-  shell: ls -l /etc/aminer/conf-enabled/
-  register: shell_result
-
-- debug:
-        var: shell_result.stdout_lines
+- name: Print pythonpath
+  debug:
+        var: aminer_pythonpath
 
 
 - name: link python3-pkg_resources
   file:
-    src: /usr/lib/python3/dist-packages/pkg_resources
+    src: "{{aminer_pythonpath}}/pkg_resources"
     dest: /etc/aminer/conf-enabled/pkg_resources
     state: link
 
 - name: link python3-yaml
   file:
-    src: /usr/lib/python3/dist-packages/yaml
+    src: "{{aminer_pythonpath}}/yaml"
     dest: /etc/aminer/conf-enabled/yaml
     state: link
 
 - name: link python3-tz
   file:
-    src: /usr/lib/python3/dist-packages/pytz
+    src: "{{aminer_pythonpath}}/pytz"
     dest: /etc/aminer/conf-enabled/pytz
     state: link
 
 - name: link python3-dateutil
   file:
-    src: /usr/lib/python3/dist-packages/dateutil
+    src: "{{aminer_pythonpath}}/dateutil"
     dest: /etc/aminer/conf-enabled/dateutil
     state: link
 
 - name: link python3-six
   file:
-    src: /usr/lib/python3/dist-packages/six.py
+    src: "{{aminer_pythonpath}}/six.py"
     dest: /etc/aminer/conf-enabled/six.py
     state: link
 
