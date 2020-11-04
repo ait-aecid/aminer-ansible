@@ -141,6 +141,14 @@
 - debug:
         var: shell_result.stdout_lines
 
+- name: find pkg_resources
+  shell: find / -name pkg_resources -type d 2> /dev/null
+  register: shell_result
+
+- debug:
+        var: shell_result.stdout_lines
+
+
 - name: list pkg_resources
   shell: ls -ld /usr/lib/python3/dist-packages/*
   register: shell_result
