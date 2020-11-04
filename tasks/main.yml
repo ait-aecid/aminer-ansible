@@ -110,8 +110,8 @@
     cmd: find /usr/local/ -name kafka -type d -exec ln -s {} /etc/aminer/conf-enabled/kafka \;
     creates: /etc/aminer/conf-enabled/kafka
 
-- name: find dateutil
-  shell: find / -name dateutil 2>/dev/null
+- name: find cerberus
+  shell: find / -name cerberus 2>/dev/null
   register: shell_result
 
 - debug:
@@ -130,13 +130,6 @@
     src: "{{aminer_pythonpath}}/numpy"
     dest: /etc/aminer/conf-enabled/numpy
     state: link
-
-
-- name: Print pythonpath
-  debug:
-        var: aminer_pythonpath
-
-
 
 
 - name: link python3-pkg_resources
