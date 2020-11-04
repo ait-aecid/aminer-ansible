@@ -62,6 +62,12 @@
     mode: "0700"
     state: "directory"
 
+- name: Create RemoteControl-Link
+  file:
+    src: "/usr/lib/logdata-anomaly-miner/aminerremotecontrol.py"
+    dest: "/usr/bin/aminerremotecontrol"
+    state: "link"
+
 - name: Create Aminer-Link
   file:
     src: "/usr/lib/logdata-anomaly-miner/aminer.py"
@@ -94,13 +100,13 @@
 
 - name: Link python3-cerberus
   file:
-    src: /usr/lib/python3.6/site-packages/cerberus
+    src: "{{aminer_pippath}}/cerberus"
     dest: /etc/aminer/conf-enabled/cerberus
     state: link
 
 - name: Link kafka
   file:
-    src: /usr/lib/python3.6/site-packages/kafka
+    src: "{{aminer_pippath}}/kafka"
     dest: /etc/aminer/conf-enabled/kafka
     state: link
 
@@ -151,11 +157,10 @@
     cmd: xsltproc --output /usr/share/man/man1/aminer.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminer.1.xml && gzip /usr/share/man/man1/aminer.1
     creates: /usr/share/man/man1/aminer.1.gz
 
-- name: create man-page for aminerRemoteControl
+- name: create man-page for AMinerRemoteControl
   shell:
-    cmd: xsltproc --output /usr/share/man/man1/aminerRemoteControl.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminerRemoteControl.1.xml && gzip /usr/share/man/man1/aminerRemoteControl.1
-    creates: /usr/share/man/man1/aminerRemoteControl.1.gz
-
+    cmd: xsltproc --output /usr/share/man/man1/aminerremotecontrol.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminerremotecontrol.1.xml && gzip /usr/share/man/man1/aminerremotecontrol.1
+    creates: /usr/share/man/man1/aminerremotecontrol.1.gz
 
 - name: Run RedHat Tasks
   include: RedHat.yml
