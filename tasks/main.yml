@@ -100,15 +100,17 @@
     state: latest
 
 - name: Link python3-cerberus
-  shell:
-    cmd: find /usr/local/ -name cerberus -type d -exec ln -s {} /etc/aminer/conf-enabled/cerberus \;
-    creates: /etc/aminer/conf-enabled/cerberus
+  file:
+    src: "{{aminer_pippath}}/cerberus"
+    dest: /etc/aminer/conf-enabled/cerberus
+    state: link
 
 
 - name: Link kafka
   shell:
-    cmd: find /usr/local/ -name kafka -type d -exec ln -s {} /etc/aminer/conf-enabled/kafka \;
-    creates: /etc/aminer/conf-enabled/kafka
+    src: "{{aminer_pippath}}/kafka"
+    dest: /etc/aminer/conf-enabled/kafka
+    state: link
 
 - name: find cerberus
   shell: find / -name cerberus 2>/dev/null
