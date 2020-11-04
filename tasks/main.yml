@@ -112,14 +112,6 @@
     dest: /etc/aminer/conf-enabled/kafka
     state: link
 
-- name: find cerberus
-  shell: find / -name cerberus 2>/dev/null
-  register: shell_result
-
-- debug:
-        var: shell_result.stdout_lines
-
-
 - name: Link scipy
   file:
     src: "{{aminer_pythonpath}}/scipy"
