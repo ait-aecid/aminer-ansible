@@ -123,6 +123,17 @@
     dest: /etc/aminer/conf-enabled/numpy
     state: link
 
+- debug:
+        var: aminer_packages
+
+
+- name: dpkg python3-pkg_resources
+  shell: dpkg -L python3-pkg-resources
+  register: shell_result
+
+- debug:
+        var: shell_result.stdout_lines
+
 - name: list pkg_resources
   shell: ls -ld /usr/lib/python3/dist-packages/*
   register: shell_result
