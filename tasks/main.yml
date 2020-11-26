@@ -1,18 +1,42 @@
-- name: Include OS specific variables
-  include_vars: "{{ item }}"
-  with_first_found:
-    - "{{ ansible_distribution }}.yml"
-    - "{{ ansible_os_family }}.yml"
+# - name: Include OS specific variables
+#   include_vars: "{{ item }}"
+#   with_first_found:
+#     - "{{ ansible_distribution }}.yml"
+#     - "{{ ansible_os_family }}.yml"
+#   tags: vars
+
+- name: Include Debian-Buster Variables
+  include_vars: debian-buster.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
+  tags: vars
+
+- name: Include Ubuntu 18.04 Variables
+  include_vars: debian-buster.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version < '20'
+  tags: vars
+
+- name: Include Debian Variables
+  include_vars: debian.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version >= '11'
+  tags: vars
+
+- name: Include Ubuntu Variables
+  include_vars: debian.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
+  tags: vars
+
 
 - name: Install Packages
   package:
     name: "{{aminer_packages}}"
     state: latest
+  tags: install
 
 - name: Install Tools
   package:
     name: "{{aminer_tools}}"
     state: latest
+  tags: install
 
 
 - name: Git clone OpenSource-Aminer
@@ -87,30 +111,22 @@
     group: root
     mode: 0755
 
-- name: Install python3-cerberus
-  pip:
-    name: cerberus
-    executable: pip3
-    state: latest
+- name: Run Buster Tasks
+  include: buster.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
 
-- name: Install python3-kafka
-  pip:
-    name: kafka-python
-    executable: pip3
-    state: latest
+- name: Run Ubuntu 18.04 Tasks
+  include: buster.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version < '20'
 
-- name: Link python3-cerberus
-  file:
-    src: "{{aminer_pippath}}/cerberus"
-    dest: /etc/aminer/conf-enabled/cerberus
-    state: link
+- name: Run Debian > 10  Tasks
+  include: debian.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version > '10'
 
+- name: Run Ubuntu > 18 Tasks
+  include: debian.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version > '18'
 
-- name: Link kafka
-  file:
-    src: "{{aminer_pippath}}/kafka"
-    dest: /etc/aminer/conf-enabled/kafka
-    state: link
 
 - name: Link scipy
   file:
@@ -166,6 +182,6 @@
     cmd: xsltproc --output /usr/share/man/man1/aminerremotecontrol.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminerremotecontrol.1.xml && gzip /usr/share/man/man1/aminerremotecontrol.1
     creates: /usr/share/man/man1/aminerremotecontrol.1.gz
 
-- name: Run RedHat Tasks
-  include: RedHat.yml
-  when: ansible_os_family == 'RedHat'
+# - name: Run RedHat Tasks
+#   include: RedHat.yml
+#   when: ansible_os_family == 'RedHat'

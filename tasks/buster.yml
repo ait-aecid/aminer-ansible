@@ -1,0 +1,25 @@
+- name: Install python3-cerberus
+  pip:
+    name: cerberus
+    executable: pip3
+    state: latest
+
+- name: Install python3-kafka
+  pip:
+    name: kafka-python
+    executable: pip3
+    state: latest
+
+- name: Link python3-cerberus
+  file:
+    src: "{{aminer_pippath}}/cerberus"
+    dest: /etc/aminer/conf-enabled/cerberus
+    state: link
+
+
+- name: Link kafka
+  file:
+    src: "{{aminer_pippath}}/kafka"
+    dest: /etc/aminer/conf-enabled/kafka
+    state: link
+
