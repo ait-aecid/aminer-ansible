@@ -11,4 +11,6 @@ aminer_packages:
         - xsltproc
         - docbook-xsl
         - gzip
+        - python3-pylibacl
+        - libacl1-dev
 aminer_usershell: /usr/sbin/nologin
