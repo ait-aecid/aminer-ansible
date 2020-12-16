@@ -86,22 +86,22 @@
     mode: "0700"
     state: "directory"
 
-- name: Create RemoteControl-Link
+- name: Create remote control link
   file:
     src: "/usr/lib/logdata-anomaly-miner/aminerremotecontrol.py"
     dest: "/usr/bin/aminerremotecontrol"
     state: "link"
 
-- name: Create Aminer-Link
+- name: Create aminer link
   file:
     src: "/usr/lib/logdata-anomaly-miner/aminer.py"
     dest: "/usr/bin/aminer"
     state: "link"
 
-- name: Create Aminer-Link stable # TODO - remove after next AMiner release
+- name: Create aminer-persistence link
   file:
-    src: "/usr/lib/logdata-anomaly-miner/aminer.py"
-    dest: "/usr/bin/AMiner"
+    src: "/usr/lib/logdata-anomaly-miner/aminer-persistence.py"
+    dest: "/usr/bin/aminer-persistence"
     state: "link"
  
 - name: Set aminer permissions
@@ -182,12 +182,12 @@
     dest: /etc/aminer/conf-enabled/six.py
     state: link
 
-- name: create man-page for AMiner
+- name: create man-page for aminer
   shell:
     cmd: xsltproc --output /usr/share/man/man1/aminer.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminer.1.xml && gzip /usr/share/man/man1/aminer.1
     creates: /usr/share/man/man1/aminer.1.gz
 
-- name: create man-page for AMinerRemoteControl
+- name: create man-page for aminerremotecontrol
   shell:
     cmd: xsltproc --output /usr/share/man/man1/aminerremotecontrol.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminerremotecontrol.1.xml && gzip /usr/share/man/man1/aminerremotecontrol.1
     creates: /usr/share/man/man1/aminerremotecontrol.1.gz
