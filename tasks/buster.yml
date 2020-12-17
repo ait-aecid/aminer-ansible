@@ -24,10 +24,17 @@
     state: link
   with_items: "{{cerberus.files }}"
 
+- name: Find kafka
+  find:
+    paths: "/usr"
+    patterns: 'kafka'
+    file_type: 'directory'
+  register: kafka
 
 - name: Link kafka
   file:
-    src: "{{aminer_pippath}}/kafka"
-    dest: /etc/aminer/conf-enabled/kafka
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
+  with_items: "{{kafka.files }}"
 
