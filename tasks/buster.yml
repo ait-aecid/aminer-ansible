@@ -15,6 +15,7 @@
     paths: "/usr"
     patterns: 'cerberus'
     file_type: 'directory'
+    recurse: yes
   register: cerberus
 
 - name: Link cerberus
@@ -29,6 +30,7 @@
     paths: "/usr"
     patterns: 'kafka'
     file_type: 'directory'
+    recurse: yes
   register: kafka
 
 - name: Link kafka
