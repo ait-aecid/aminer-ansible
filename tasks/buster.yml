@@ -10,11 +10,19 @@
     executable: pip3
     state: latest
 
-- name: Link python3-cerberus
+- name: Find cerberus
+  find:
+    paths: "/usr"
+    patterns: 'cerberus'
+    file_type: 'directory'
+  register: cerberus
+
+- name: Link cerberus
   file:
-    src: "{{aminer_pippath}}/cerberus"
-    dest: /etc/aminer/conf-enabled/cerberus
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
+  with_items: "{{cerberus.files }}"
 
 
 - name: Link kafka
