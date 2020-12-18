@@ -1,18 +1,42 @@
-- name: Include OS specific variables
-  include_vars: "{{ item }}"
-  with_first_found:
-    - "{{ ansible_distribution }}.yml"
-    - "{{ ansible_os_family }}.yml"
+# - name: Include OS specific variables
+#   include_vars: "{{ item }}"
+#   with_first_found:
+#     - "{{ ansible_distribution }}.yml"
+#     - "{{ ansible_os_family }}.yml"
+#   tags: vars
+
+- name: Include Debian-Buster Variables
+  include_vars: debian-buster.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
+  tags: vars
+
+- name: Include Ubuntu 18.04 Variables
+  include_vars: debian-buster.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version < '20'
+  tags: vars
+
+- name: Include Debian Variables
+  include_vars: debian.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version >= '11'
+  tags: vars
+
+- name: Include Ubuntu Variables
+  include_vars: debian.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
+  tags: vars
+
 
 - name: Install Packages
   package:
     name: "{{aminer_packages}}"
     state: latest
+  tags: install
 
 - name: Install Tools
   package:
     name: "{{aminer_tools}}"
     state: latest
+  tags: install
 
 
 - name: Git clone OpenSource-Aminer
@@ -62,22 +86,22 @@
     mode: "0700"
     state: "directory"
 
-- name: Create RemoteControl-Link
+- name: Create remote control link
   file:
     src: "/usr/lib/logdata-anomaly-miner/aminerremotecontrol.py"
     dest: "/usr/bin/aminerremotecontrol"
     state: "link"
 
-- name: Create Aminer-Link
+- name: Create aminer link
   file:
     src: "/usr/lib/logdata-anomaly-miner/aminer.py"
     dest: "/usr/bin/aminer"
     state: "link"
 
-- name: Create Aminer-Link stable # TODO - remove after next AMiner release
+- name: Create aminer-persistence link
   file:
-    src: "/usr/lib/logdata-anomaly-miner/aminer.py"
-    dest: "/usr/bin/AMiner"
+    src: "/usr/lib/logdata-anomaly-miner/aminer-persistence.py"
+    dest: "/usr/bin/aminer-persistence"
     state: "link"
  
 - name: Set aminer permissions
@@ -87,44 +111,46 @@
     group: root
     mode: 0755
 
-- name: Install python3-cerberus
-  pip:
-    name: cerberus
-    executable: pip3
-    state: latest
+- name: Run Buster Tasks
+  include: buster.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
 
-- name: Install python3-kafka
-  pip:
-    name: kafka-python
-    executable: pip3
-    state: latest
+- name: Run Ubuntu 18.04 Tasks
+  include: buster.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version < '20'
 
-- name: Link python3-cerberus
+- name: Run Debian > 10  Tasks
+  include: debian.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version > '10'
+
+- name: Run Ubuntu > 18 Tasks
+  include: debian.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version > '18'
+
+- name: Find pylibacl
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'posix1e.cpython*.so'
+  register: output
+
+- name: Link pylibacl
   file:
-    src: "{{aminer_pippath}}/cerberus"
-    dest: /etc/aminer/conf-enabled/cerberus
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
-
-
-- name: Link kafka
-  file:
-    src: "{{aminer_pippath}}/kafka"
-    dest: /etc/aminer/conf-enabled/kafka
-    state: link
-
-- name: Link scipy
-  file:
-    src: "{{aminer_pythonpath}}/scipy"
-    dest: /etc/aminer/conf-enabled/scipy
-    state: link
-
+  with_items: "{{output.files }}"
+                                           
+- name: Link scipy                         
+  file:                                    
+    src: "{{aminer_pythonpath}}/scipy"     
+    dest: /etc/aminer/conf-enabled/scipy   
+    state: link                            
 
 - name: Link numpy
   file:
     src: "{{aminer_pythonpath}}/numpy"
     dest: /etc/aminer/conf-enabled/numpy
     state: link
-
 
 - name: link python3-pkg_resources
   file:
@@ -156,16 +182,16 @@
     dest: /etc/aminer/conf-enabled/six.py
     state: link
 
-- name: create man-page for AMiner
+- name: create man-page for aminer
   shell:
     cmd: xsltproc --output /usr/share/man/man1/aminer.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminer.1.xml && gzip /usr/share/man/man1/aminer.1
     creates: /usr/share/man/man1/aminer.1.gz
 
-- name: create man-page for AMinerRemoteControl
+- name: create man-page for aminerremotecontrol
   shell:
     cmd: xsltproc --output /usr/share/man/man1/aminerremotecontrol.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminerremotecontrol.1.xml && gzip /usr/share/man/man1/aminerremotecontrol.1
     creates: /usr/share/man/man1/aminerremotecontrol.1.gz
 
-- name: Run RedHat Tasks
-  include: RedHat.yml
-  when: ansible_os_family == 'RedHat'
+# - name: Run RedHat Tasks
+#   include: RedHat.yml
+#   when: ansible_os_family == 'RedHat'
