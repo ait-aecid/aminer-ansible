@@ -8,6 +8,7 @@ aminer_packages:
         - python3-dateutil
         - python3-six
         - python3-scipy
+        - python3-urllib3
         - xsltproc
         - docbook-xsl
         - gzip
