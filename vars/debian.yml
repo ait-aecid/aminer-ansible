@@ -16,4 +16,5 @@ aminer_packages:
         - gzip
         - python3-pylibacl
         - libacl1-dev
+        - mypy
 aminer_usershell: /usr/sbin/nologin
