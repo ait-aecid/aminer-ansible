@@ -11,6 +11,7 @@ aminer_packages:
         - python3-cerberus
         - python3-kafka
         - python3-urllib3
+        - python3-statsmodels
         - xsltproc
         - docbook-xsl
         - gzip
