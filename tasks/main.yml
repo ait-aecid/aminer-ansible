@@ -152,42 +152,48 @@
     dest: /etc/aminer/conf-enabled/numpy
     state: link
 
-- name: link python3-pkg_resources
+- name: Link python3-pkg_resources
   file:
     src: "{{aminer_pkgrespath}}/pkg_resources"
     dest: /etc/aminer/conf-enabled/pkg_resources
     state: link
 
-- name: link python3-yaml
+- name: Link python3-yaml
   file:
     src: "{{aminer_pythonpath}}/yaml"
     dest: /etc/aminer/conf-enabled/yaml
     state: link
 
-- name: link python3-tz
+- name: Link python3-tz
   file:
     src: "{{aminer_pythonpath}}/pytz"
     dest: /etc/aminer/conf-enabled/pytz
     state: link
 
-- name: link python3-dateutil
+- name: Link python3-dateutil
   file:
     src: "{{aminer_pythonpath}}/dateutil"
     dest: /etc/aminer/conf-enabled/dateutil
     state: link
 
-- name: link python3-six
+- name: Link python3-six
   file:
     src: "{{aminer_pythonpath}}/six.py"
     dest: /etc/aminer/conf-enabled/six.py
     state: link
 
-- name: create man-page for aminer
+- name: Link python3-statsmodels
+  file:
+    src: "{{aminer_pythonpath}}/statsmodels"
+    dest: /etc/aminer/conf-enabled/statsmodels
+    state: link
+
+- name: Create man-page for aminer
   shell:
     cmd: xsltproc --output /usr/share/man/man1/aminer.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminer.1.xml && gzip /usr/share/man/man1/aminer.1
     creates: /usr/share/man/man1/aminer.1.gz
 
-- name: create man-page for aminerremotecontrol
+- name: Create man-page for aminerremotecontrol
   shell:
     cmd: xsltproc --output /usr/share/man/man1/aminerremotecontrol.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminerremotecontrol.1.xml && gzip /usr/share/man/man1/aminerremotecontrol.1
     creates: /usr/share/man/man1/aminerremotecontrol.1.gz
