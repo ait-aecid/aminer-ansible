@@ -176,6 +176,25 @@
     dest: /etc/aminer/conf-enabled/dateutil
     state: link
 
+- name: Link pandas
+  file:
+    src: "{{aminer_pythonpath}}/pandas"
+    dest: /etc/aminer/conf-enabled/pandas
+    state: link
+
+- name: Link joblib
+  file:
+    src: "{{aminer_pythonpath}}/joblib"
+    dest: /etc/aminer/conf-enabled/joblib
+    state: link
+
+- name: Link patsy
+  file:
+    src: "{{aminer_pythonpath}}/patsy"
+    dest: /etc/aminer/conf-enabled/patsy
+    state: link
+
+
 - name: Link python3-six
   file:
     src: "{{aminer_pythonpath}}/six.py"
