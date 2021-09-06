@@ -182,18 +182,6 @@
     dest: /etc/aminer/conf-enabled/pandas
     state: link
 
-- name: Link pmdarima
-  file:
-    src: "{{aminer_pythonpath}}/pmdarima"
-    dest: /etc/aminer/conf-enabled/pmdarima
-    state: link
-
-- name: Link sklearn
-  file:
-    src: "{{aminer_pythonpath}}/sklearn"
-    dest: /etc/aminer/conf-enabled/sklearn
-    state: link
-
 - name: Link joblib
   file:
     src: "{{aminer_pythonpath}}/joblib"
