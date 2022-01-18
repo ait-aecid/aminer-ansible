@@ -63,6 +63,7 @@
   synchronize:
     group: no
     owner: no
+    delete: yes
     src: "{{aminer_repopath}}/source/root/usr/lib/logdata-anomaly-miner/"
     dest: "/usr/lib/logdata-anomaly-miner/"
 
