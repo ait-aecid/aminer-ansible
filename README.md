@@ -2,7 +2,7 @@
 
 # Requirements
 
-- Debian or Redhat derivats are supported
+- Debian or Ubuntu
 
 # Configuration
 
