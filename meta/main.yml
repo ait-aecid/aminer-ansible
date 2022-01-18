@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Wolfgang Hotwagner
+  description: Installs and configures an instance of logdata-anomaly-miner
+  company: AIT Austrian Institute of Technology
+
+
+  license: GPL-3.0-2.0-or-later
+
+  min_ansible_version: 2.1
+
+  galaxy_tags:
+    - system
+    - logging
+    - debian
+    - ubuntu
+
+dependencies: []
+collections: 
+  - community.general
