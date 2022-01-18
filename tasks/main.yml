@@ -45,6 +45,11 @@
     dest: "{{aminer_repopath}}"
   when: aminer_gitrepo != False
 
+- name: Add build-id to Aminer
+  shell:
+    chdir: "{{aminer_repopath}}"
+    cmd: scripts/addbuildid.sh
+
 - name: Synchronize Aminer-etc
   synchronize:
     group: no
