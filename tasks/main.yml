@@ -127,6 +127,25 @@
   include: debian.yml
   when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version > '18'
 
+- name: Install orjson
+  pip:
+    name: orjson
+    executable: pip3
+    state: latest
+
+- name: Find json.cpython
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'json.cpython*.so'
+  register: orjson
+
+- name: Link orjson
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{orjson.files }}"
+
 - name: Find pylibacl
   find:
     paths: "{{aminer_pythonpath}}"
