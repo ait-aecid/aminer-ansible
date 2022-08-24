@@ -4,6 +4,12 @@
     executable: pip3
     state: latest
 
+- name: pip self-update
+  pip:
+    name: pip
+    executable: pip3
+    state: latest
+
 - name: Install python3-kafka
   pip:
     name: kafka-python
@@ -39,4 +45,5 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{kafka.files }}"
+
 
