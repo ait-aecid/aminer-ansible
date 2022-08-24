@@ -4,11 +4,31 @@
     executable: pip3
     state: latest
 
+- name: pip self-update
+  pip:
+    name: pip
+    executable: pip3
+    state: latest
+
 - name: Install python3-kafka
   pip:
     name: kafka-python
     executable: pip3
     state: latest
+
+- name: Find json.cpython
+  find:
+    paths: "/usr"
+    patterns: 'json.cpython*.so'
+    recurse: yes
+  register: orjson
+
+- name: Link orjson
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{orjson.files }}"
 
 - name: Find cerberus
   find:
@@ -39,4 +59,5 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{kafka.files }}"
+
 
