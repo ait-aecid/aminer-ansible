@@ -142,7 +142,7 @@
 - name: Find json.cpython
   find:
     paths: "/usr"
-    patterns: 'json.cpython*.so'
+    patterns: 'orjson.cpython*.so'
     recurse: yes
   register: orjson
 
