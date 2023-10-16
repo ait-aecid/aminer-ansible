@@ -235,12 +235,12 @@
 
 - name: Create man-page for aminer
   shell:
-    cmd: xsltproc --output /usr/share/man/man1/aminer.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminer.1.xml && gzip /usr/share/man/man1/aminer.1
+    cmd: xsltproc --output /usr/share/man/man1/aminer.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/docs/manpages/aminer.1.xml && gzip /usr/share/man/man1/aminer.1
     creates: /usr/share/man/man1/aminer.1.gz
 
 - name: Create man-page for aminerremotecontrol
   shell:
-    cmd: xsltproc --output /usr/share/man/man1/aminerremotecontrol.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/debian/aminerremotecontrol.1.xml && gzip /usr/share/man/man1/aminerremotecontrol.1
+    cmd: xsltproc --output /usr/share/man/man1/aminerremotecontrol.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/docs/manpages/aminerremotecontrol.1.xml && gzip /usr/share/man/man1/aminerremotecontrol.1
     creates: /usr/share/man/man1/aminerremotecontrol.1.gz
 
 # - name: Run RedHat Tasks
