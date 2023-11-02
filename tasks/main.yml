@@ -10,11 +10,6 @@
   when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
   tags: vars
 
-- name: Include Ubuntu 18.04 Variables
-  include_vars: debian-buster.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version < '20'
-  tags: vars
-
 - name: Include Debian Variables
   include_vars: debian.yml
   when: ansible_distribution == "Debian" and ansible_distribution_major_version >= '11'
@@ -121,17 +116,13 @@
   include: buster.yml
   when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
 
-- name: Run Ubuntu 18.04 Tasks
-  include: buster.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version < '20'
-
 - name: Run Debian > 10  Tasks
   include: debian.yml
   when: ansible_distribution == "Debian" and ansible_distribution_major_version > '10'
 
 - name: Run Ubuntu > 18 Tasks
   include: debian.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version > '18'
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
 
 - name: Install orjson
   pip:
