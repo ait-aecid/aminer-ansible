@@ -139,6 +139,41 @@
     executable: pip3
     state: latest
 
+- name: Install pyzmq
+  pip:
+    name: pyzmq
+    executable: pip3
+    state: latest
+
+- name: Find zmq
+  find:
+    paths: "/usr"
+    patterns: 'zmq'
+    recurse: yes
+  register: zmq
+
+- name: Find pyzmq.libs
+  find:
+    paths: "/usr"
+    patterns: 'pyzmq.libs'
+    recurse: yes
+  register: pyzmqlibs
+
+- name: Link zmq
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{zmq.files }}"
+
+- name: Link pyzmq.libs
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{pyzmqlibs.files }}"
+
+
 - name: Find json.cpython
   find:
     paths: "/usr"
