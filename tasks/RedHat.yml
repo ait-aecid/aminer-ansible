@@ -1,0 +1,83 @@
+- name: Install python3-cerberus
+  pip:
+    name: cerberus
+    executable: pip3
+    state: latest
+
+- name: pip self-update
+  pip:
+    name: pip
+    executable: pip3
+    state: latest
+
+- name: Install python3-kafka
+  pip:
+    name: kafka-python
+    executable: pip3
+    state: latest
+
+- name: Install python3-pandas
+  pip:
+    name: pandas
+    executable: pip3
+    state: latest
+
+- name: Find cerberus
+  find:
+    paths: "/usr"
+    patterns: 'cerberus'
+    file_type: 'directory'
+    recurse: yes
+  register: cerberus
+
+- name: Link cerberus
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{cerberus.files }}"
+
+- name: Find kafka
+  find:
+    paths: "/usr"
+    patterns: 'kafka'
+    file_type: 'directory'
+    recurse: yes
+  register: kafka
+
+- name: Link kafka
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{kafka.files }}"
+
+- name: Find pandas
+  find:
+    paths: "/usr"
+    patterns: 'pandas'
+    file_type: 'directory'
+    recurse: yes
+  register: pandas
+
+- name: Link pandas
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{pandas.files }}"
+
+- name: Find patsy
+  find:
+    paths: "/usr"
+    patterns: 'patsy'
+    file_type: 'directory'
+    recurse: yes
+  register: pandas
+
+- name: Link patsy
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{patsy.files }}"

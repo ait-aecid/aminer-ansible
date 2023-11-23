@@ -14,15 +14,11 @@ aminer_packages:
         - python3-statsmodels
         - python3-defusedxml
         - python3-yaml
-        - python3-pandas
-        - python3-patsy
         - python3-six
         - cppzmq-devel
-        - xsltproc
-        - docbook-xsl
         - gzip
         - python3-pylibacl
-        - libacl-devel
+        - libacl
         - python3-mypy
 aminer_usershell: /usr/sbin/nologin
 aminer_pythonpath: "/usr/lib/python3.12/site-packages"

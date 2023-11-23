@@ -134,6 +134,10 @@
   include_tasks: debian.yml
   when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
 
+- name: Run RedHat Tasks
+  include_tasks: RedHat.yml
+  when: ansible_distribution == "RedHat"
+
 - name: Install orjson
   pip:
     name: orjson
@@ -212,8 +216,10 @@
   shell:
     cmd: xsltproc --output /usr/share/man/man1/aminer.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" {{aminer_docbookxslpath}} {{aminer_repopath}}/docs/manpages/aminer.1.xml && gzip /usr/share/man/man1/aminer.1
     creates: /usr/share/man/man1/aminer.1.gz
+  when: ansible_distribution != "RedHat"
 
 - name: Create man-page for aminerremotecontrol
   shell:
     cmd: xsltproc --output /usr/share/man/man1/aminerremotecontrol.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" {{aminer_docbookxslpath}} {{aminer_repopath}}/docs/manpages/aminerremotecontrol.1.xml && gzip /usr/share/man/man1/aminerremotecontrol.1
     creates: /usr/share/man/man1/aminerremotecontrol.1.gz
+  when: ansible_distribution != "RedHat"
