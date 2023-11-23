@@ -22,6 +22,18 @@
     executable: pip3
     state: latest
 
+- name: Install python3-patsy
+  pip:
+    name: patsy
+    executable: pip3
+    state: latest
+
+- name: Install python3-statsmodels
+  pip:
+    name: statsmodels
+    executable: pip3
+    state: latest
+
 - name: Find cerberus
   find:
     paths: "/usr"
@@ -73,7 +85,7 @@
     patterns: 'patsy'
     file_type: 'directory'
     recurse: yes
-  register: pandas
+  register: patsy
 
 - name: Link patsy
   file:
@@ -81,3 +93,18 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{patsy.files }}"
+
+- name: Find statsmodels
+  find:
+    paths: "/usr"
+    patterns: 'statsmodels'
+    file_type: 'directory'
+    recurse: yes
+  register: statsmodels
+
+- name: Link statsmodels
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{statsmodels.files }}"
