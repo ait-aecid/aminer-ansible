@@ -25,6 +25,10 @@
   when: ansible_distribution == "Fedora"
   tags: vars
 
+- name: Include RedHat Variables
+  include_vars: RedHat.yml
+  when: ansible_distribution == "RedHat"
+
 
 - name: Install Packages
   package:
@@ -212,7 +216,3 @@
   shell:
     cmd: xsltproc --output /usr/share/man/man1/aminerremotecontrol.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" {{aminer_docbookxslpath}} {{aminer_repopath}}/docs/manpages/aminerremotecontrol.1.xml && gzip /usr/share/man/man1/aminerremotecontrol.1
     creates: /usr/share/man/man1/aminerremotecontrol.1.gz
-
-# - name: Run RedHat Tasks
-#   include_tasks: RedHat.yml
-#   when: ansible_os_family == 'RedHat'
