@@ -19,5 +19,4 @@ aminer_packages:
         - libacl
         - python3-mypy
 aminer_usershell: /usr/sbin/nologin
-aminer_pythonpath: "/usr/lib/python3.12/site-packages"
-aminer_docbookxslpath: "/usr/share/sgml/docbook/xsl-stylesheets-1.79.2/html/docbook.xsl"
+aminer_pythonpath: "/usr/lib/python3.9/site-packages"

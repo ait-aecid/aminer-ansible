@@ -208,7 +208,7 @@
 
 - name: Link python3-pkg_resources
   file:
-    src: "{{aminer_pkgrespath}}/pkg_resources"
+    src: "{{aminer_pythonpath}}/pkg_resources"
     dest: /etc/aminer/conf-enabled/pkg_resources
     state: link
 
