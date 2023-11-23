@@ -196,12 +196,6 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{output.files }}"
-                                           
-- name: Link scipy                         
-  file:                                    
-    src: "{{aminer_pythonpath}}/scipy"     
-    dest: /etc/aminer/conf-enabled/scipy   
-    state: link                            
 
 - name: Link numpy
   file:
