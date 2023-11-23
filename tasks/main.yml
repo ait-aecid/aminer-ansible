@@ -134,10 +134,6 @@
   include_tasks: debian.yml
   when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
 
-- name: Run RedHat Tasks
-  include_tasks: RedHat.yml
-  when: ansible_distribution == 'RedHat'
-
 - name: Install orjson
   pip:
     name: orjson
