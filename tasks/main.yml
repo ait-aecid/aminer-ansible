@@ -197,12 +197,6 @@
     state: link
   with_items: "{{output.files }}"
 
-- name: Link numpy
-  file:
-    src: "{{aminer_pythonpath}}/numpy"
-    dest: /etc/aminer/conf-enabled/numpy
-    state: link
-
 - name: Link python3-pkg_resources
   file:
     src: "{{aminer_pkgrespath}}/pkg_resources"
