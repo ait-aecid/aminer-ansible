@@ -281,5 +281,5 @@
     creates: /usr/share/man/man1/aminerremotecontrol.1.gz
 
 # - name: Run RedHat Tasks
-#   include: RedHat.yml
+#   include_tasks: RedHat.yml
 #   when: ansible_os_family == 'RedHat'
