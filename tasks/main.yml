@@ -203,12 +203,6 @@
     dest: /etc/aminer/conf-enabled/pkg_resources
     state: link
 
-- name: Link joblib
-  file:
-    src: "{{aminer_pythonpath}}/joblib"
-    dest: /etc/aminer/conf-enabled/joblib
-    state: link
-
 - name: Create man-page for aminer
   shell:
     cmd: xsltproc --output /usr/share/man/man1/aminer.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/docs/manpages/aminer.1.xml && gzip /usr/share/man/man1/aminer.1
