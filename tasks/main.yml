@@ -150,6 +150,10 @@
     executable: pip3
     state: latest
 
+- name: RedHat Link Python Packages
+  command: ln -s /usr/lib64/python3.9/site-packages/* /usr/lib/python3.9/site-packages/ 2>/dev/null || :
+  when: ansible_distribution == "RedHat"
+
 - name: Find zmq
   find:
     paths: "/usr"
