@@ -20,6 +20,11 @@
   when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
   tags: vars
 
+- name: Include Fedora Variables
+  include_vars: fedora.yml
+  when: ansible_distribution == "Fedora"
+  tags: vars
+
 
 - name: Install Packages
   package:
