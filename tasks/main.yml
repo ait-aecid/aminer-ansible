@@ -203,59 +203,10 @@
     dest: /etc/aminer/conf-enabled/pkg_resources
     state: link
 
-- name: Link python3-yaml
-  file:
-    src: "{{aminer_pythonpath}}/yaml"
-    dest: /etc/aminer/conf-enabled/yaml
-    state: link
-
-- name: Link python3-tz
-  file:
-    src: "{{aminer_pythonpath}}/pytz"
-    dest: /etc/aminer/conf-enabled/pytz
-    state: link
-
-- name: Link python3-dateutil
-  file:
-    src: "{{aminer_pythonpath}}/dateutil"
-    dest: /etc/aminer/conf-enabled/dateutil
-    state: link
-
-- name: Link pandas
-  file:
-    src: "{{aminer_pythonpath}}/pandas"
-    dest: /etc/aminer/conf-enabled/pandas
-    state: link
-
 - name: Link joblib
   file:
     src: "{{aminer_pythonpath}}/joblib"
     dest: /etc/aminer/conf-enabled/joblib
-    state: link
-
-- name: Link patsy
-  file:
-    src: "{{aminer_pythonpath}}/patsy"
-    dest: /etc/aminer/conf-enabled/patsy
-    state: link
-
-
-- name: Link python3-six
-  file:
-    src: "{{aminer_pythonpath}}/six.py"
-    dest: /etc/aminer/conf-enabled/six.py
-    state: link
-
-- name: Link python3-statsmodels
-  file:
-    src: "{{aminer_pythonpath}}/statsmodels"
-    dest: /etc/aminer/conf-enabled/statsmodels
-    state: link
-
-- name: Link python3-defusedxml
-  file:
-    src: "{{aminer_pythonpath}}/defusedxml"
-    dest: /etc/aminer/conf-enabled/defusedxml
     state: link
 
 - name: Create man-page for aminer
