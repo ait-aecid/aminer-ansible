@@ -28,6 +28,7 @@
 - name: Include RedHat Variables
   include_vars: RedHat.yml
   when: ansible_distribution == "RedHat"
+  tags: vars
 
 
 - name: Install Packages
@@ -132,6 +133,10 @@
 - name: Run Ubuntu > 18 Tasks
   include_tasks: debian.yml
   when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
+
+- name: Run RedHat Tasks
+  include_tasks: RedHat.yml
+  when: ansible_distribution == 'RedHat'
 
 - name: Install orjson
   pip:
