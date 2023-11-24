@@ -150,18 +150,6 @@
     executable: pip3
     state: latest
 
-- name: RedHat copy Python Packages
-  copy:
-    src: /usr/lib64/python3.9/site-packages/
-    dest: /usr/lib/python3.9/site-packages/
-    remote_src: yes
-    directory_mode:
-  when: ansible_distribution == "RedHat"
-
-- name: RedHat Link Python Packages
-  command: ls /usr/lib/python3.9/site-packages
-  when: ansible_distribution == "RedHat"
-
 - name: Find zmq
   find:
     paths: "/usr"
@@ -224,11 +212,19 @@
     dest: /etc/aminer/conf-enabled/scipy
     state: link
 
+- name: Find numpy
+  find:
+    paths: "/usr"
+    patterns: 'numpy'
+    recurse: yes
+  register: numpy
+
 - name: Link numpy
   file:
-    src: "{{aminer_pythonpath}}/numpy"
-    dest: /etc/aminer/conf-enabled/numpy
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
+  with_items: "{{numpy.files }}"
 
 - name: Link python3-pkg_resources
   file:
