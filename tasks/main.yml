@@ -152,7 +152,7 @@
 
 - name: RedHat Link Python Packages
   shell:
-    cmd: ln -s /usr/lib64/python3.9/site-packages/* /usr/lib/python3.9/site-packages/ 2>/dev/null || true
+    cmd: cp /usr/lib64/python3.9/site-packages/* /usr/lib/python3.9/site-packages/ 2>/dev/null || true
   when: ansible_distribution == "RedHat"
 
 - name: Find zmq
