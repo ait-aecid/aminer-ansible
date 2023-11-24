@@ -151,9 +151,11 @@
     state: latest
 
 - name: RedHat Link Python Packages
-  shell: |
-    cp -r /usr/lib64/python3.9/site-packages/* /usr/lib/python3.9/site-packages/
-    ls /usr/lib/python3.9/site-packages
+  command: cp -r /usr/lib64/python3.9/site-packages/* /usr/lib/python3.9/site-packages/ && ls /usr/lib/python3.9/site-packages
+  when: ansible_distribution == "RedHat"
+
+- name: RedHat Link Python Packages
+  command: ls /usr/lib/python3.9/site-packages
   when: ansible_distribution == "RedHat"
 
 - name: Find zmq
