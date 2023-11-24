@@ -150,10 +150,11 @@
     executable: pip3
     state: latest
 
-- name: RedHat Link Python Packages
+- name: RedHat copy Python Packages
   copy:
     src: /usr/lib64/python3.9/site-packages/
     dest: /usr/lib/python3.9/site-packages/
+    remote_src: yes
     directory_mode:
   when: ansible_distribution == "RedHat"
 
