@@ -25,8 +25,9 @@
 - name: Find importlib-metadata
   find:
     paths: "/usr"
-    patterns: 'importlib-metadata'
+    patterns: 'importlib_metadata'
     recurse: yes
+    file_type: "directory"
   register: importlib
 
 - name: Link importlib-metadata
