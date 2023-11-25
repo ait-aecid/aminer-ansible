@@ -155,7 +155,7 @@
     paths: "/usr"
     patterns: 'zmq'
     recurse: yes
-    file_type: "any"
+    file_type: "directory"
   register: zmq
 
 - name: Find pyzmq.libs
@@ -163,7 +163,7 @@
     paths: "/usr"
     patterns: 'pyzmq.libs'
     recurse: yes
-    file_type: "any"
+    file_type: "directory"
   register: pyzmqlibs
 
 - name: Link zmq
@@ -221,7 +221,7 @@
     paths: "/usr"
     patterns: 'numpy'
     recurse: yes
-    file_type: "any"
+    file_type: "directory"
   register: numpy
 
 - name: Link numpy
@@ -242,7 +242,7 @@
     paths: "/usr"
     patterns: 'yaml'
     recurse: yes
-    file_type: "any"
+    file_type: "directory"
   register: yaml
 
 - name: Link yaml
@@ -257,7 +257,7 @@
     paths: "/usr"
     patterns: 'pytz'
     recurse: yes
-    file_type: "any"
+    file_type: "directory"
   register: pytz
 
 - name: Link pytz
@@ -272,7 +272,7 @@
     paths: "/usr"
     patterns: 'dateutil'
     recurse: yes
-    file_type: "any"
+    file_type: "directory"
   register: dateutil
 
 - name: Link python3-dateutil
@@ -287,7 +287,7 @@
     paths: "/usr"
     patterns: 'pandas'
     recurse: yes
-    file_type: "any"
+    file_type: "directory"
   register: pandas
 
 - name: Link pandas
@@ -302,7 +302,7 @@
     paths: "/usr"
     patterns: 'joblib'
     recurse: yes
-    file_type: "any"
+    file_type: "directory"
   register: joblib
 
 - name: Link joblib
@@ -317,7 +317,7 @@
     paths: "/usr"
     patterns: 'patsy'
     recurse: yes
-    file_type: "any"
+    file_type: "directory"
   register: patsy
 
 - name: Link patsy
@@ -347,7 +347,7 @@
     paths: "/usr"
     patterns: 'statsmodels'
     recurse: yes
-    file_type: "any"
+    file_type: "directory"
   register: statsmodels
 
 - name: Link statsmodels
@@ -362,7 +362,7 @@
     paths: "/usr"
     patterns: 'defusedxml'
     recurse: yes
-    file_type: "any"
+    file_type: "directory"
   register: defusedxml
 
 - name: Link defusedxml
