@@ -210,11 +210,20 @@
     state: link
   with_items: "{{output.files }}"
 
+- name: Find scipy
+  find:
+    paths: "/usr"
+    patterns: 'scipy'
+    recurse: yes
+    file_type: "directory"
+  register: scipy
+
 - name: Link scipy
   file:
-    src: "{{aminer_pythonpath}}/scipy"
-    dest: /etc/aminer/conf-enabled/scipy
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
+  with_items: "{{scipy.files }}"
 
 - name: Find numpy
   find:
