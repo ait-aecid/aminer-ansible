@@ -122,6 +122,10 @@
     group: root
     mode: 0755
 
+- name: Run Buster Tasks
+  include_tasks: buster.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
+
 - name: Install orjson
   pip:
     name: orjson
@@ -397,7 +401,7 @@
   with_items: "{{defusedxml.files }}"
 
 - name: Run Buster Tasks
-  include_tasks: buster.yml
+  include_tasks: debian.yml
   when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
 
 - name: Run Debian > 10  Tasks
