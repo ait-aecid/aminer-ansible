@@ -282,7 +282,8 @@
     paths: "/usr"
     patterns: 'yaml'
     recurse: yes
-    file_type: "directory"
+    file_type: "any" # must use any file type to exclude ansible; otherwise only the basename is excluded.
+    excludes: "ansible"
   register: yaml
 
 - name: Link yaml
