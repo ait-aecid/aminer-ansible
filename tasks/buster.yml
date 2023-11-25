@@ -36,3 +36,18 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{importlib.files }}"
+
+- name: Find zipp
+  find:
+    paths: "/usr"
+    patterns: 'zipp'
+    recurse: yes
+    file_type: "directory"
+  register: zipp
+
+- name: Link zipp
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{zipp.files }}"
