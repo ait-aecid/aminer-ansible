@@ -16,4 +16,8 @@
     executable: pip3
     state: latest
 
-
+- name: Link yaml
+  file:
+    src: "/usr/lib/python3/dist-packages/yaml"
+    dest: "/etc/aminer/conf-enabled/yaml"
+    state: link

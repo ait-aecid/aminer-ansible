@@ -1,0 +1,5 @@
+- name: Link yaml
+  file:
+    src: "/usr/lib64/python3.12/site-packages/yaml"
+    dest: "/etc/aminer/conf-enabled/yaml"
+    state: link
