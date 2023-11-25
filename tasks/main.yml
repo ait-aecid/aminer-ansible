@@ -235,7 +235,7 @@
 - name: Find yaml
   find:
     paths: "/usr"
-    patterns: 'yaml'
+    patterns: 'dist-packages/yaml'
     recurse: yes
   register: yaml
 
