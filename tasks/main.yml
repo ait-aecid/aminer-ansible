@@ -232,17 +232,33 @@
     dest: /etc/aminer/conf-enabled/pkg_resources
     state: link
 
-- name: Link python3-yaml
-  file:
-    src: "{{aminer_pythonpath}}/yaml"
-    dest: /etc/aminer/conf-enabled/yaml
-    state: link
+- name: Find yaml
+  find:
+    paths: "/usr"
+    patterns: 'yaml'
+    recurse: yes
+  register: yaml
 
-- name: Link python3-tz
+- name: Link yaml
   file:
-    src: "{{aminer_pythonpath}}/pytz"
-    dest: /etc/aminer/conf-enabled/pytz
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
+  with_items: "{{yaml.files }}"
+
+- name: Find pytz
+  find:
+    paths: "/usr"
+    patterns: 'pytz'
+    recurse: yes
+  register: pytz
+
+- name: Link pytz
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{pytz.files }}"
 
 - name: Find python3-dateutil
   find:
