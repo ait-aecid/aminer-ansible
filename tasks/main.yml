@@ -282,8 +282,7 @@
     paths: "/usr"
     patterns: 'yaml'
     recurse: yes
-    file_type: "any" # must use any file type to exclude ansible; otherwise only the basename is excluded.
-    excludes: "ansible"
+    file_type: "directory"
   register: yaml
 
 - name: Link yaml
@@ -292,6 +291,13 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{yaml.files }}"
+
+- name: Link yaml Fedora
+  file:
+    src: "/usr/lib64/python3.12/site-packages/yaml"
+    dest: "/etc/aminer/conf-enabled/yaml"
+    state: link
+  when: ansible_distribution == "Fedora"
 
 - name: Find pytz
   find:
