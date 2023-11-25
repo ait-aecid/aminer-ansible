@@ -199,8 +199,9 @@
 
 - name: Find pylibacl
   find:
-    paths: "{{aminer_pythonpath}}"
+    paths: "/usr"
     patterns: 'posix1e.cpython*.so'
+    recurse: yes
     file_type: "any"
   register: output
 
