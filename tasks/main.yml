@@ -126,13 +126,14 @@
   include_tasks: buster.yml
   when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
 
-- name: Run Debian > 10  Tasks
-  include_tasks: debian.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version > '10'
-
-- name: Run Ubuntu > 18 Tasks
-  include_tasks: debian.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
+# leave commented code for future use
+# - name: Run Debian > 10  Tasks
+#   include_tasks: debian.yml
+#   when: ansible_distribution == "Debian" and ansible_distribution_major_version > '10'
+#
+# - name: Run Ubuntu > 18 Tasks
+#   include_tasks: debian.yml
+#   when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
 
 - name: Run RedHat Tasks
   include_tasks: RedHat.yml
@@ -224,6 +225,36 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{scipy.files }}"
+
+- name: Find cerberus
+  find:
+    paths: "/usr"
+    patterns: 'cerberus'
+    recurse: yes
+    file_type: "directory"
+  register: cerberus
+
+- name: Link cerberus
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{cerberus.files }}"
+
+- name: Find kafka
+  find:
+    paths: "/usr"
+    patterns: 'kafka'
+    recurse: yes
+    file_type: "directory"
+  register: kafka
+
+- name: Link kafka
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{kafka.files }}"
 
 - name: Find numpy
   find:
