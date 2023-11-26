@@ -51,3 +51,18 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{zipp.files }}"
+
+- name: Find typing-extensions
+  find:
+    paths: "/usr"
+    patterns: 'typing_extensions'
+    recurse: yes
+    file_type: "directory"
+  register: zipp
+
+- name: Link typing-extensions
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{typing.files }}"
