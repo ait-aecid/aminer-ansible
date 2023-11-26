@@ -55,10 +55,9 @@
 - name: Find typing-extensions
   find:
     paths: "/usr"
-    patterns: 'typing_extensions'
+    patterns: 'typing_extensions.py'
     recurse: yes
-    file_type: "directory"
-  register: zipp
+  register: typing
 
 - name: Link typing-extensions
   file:
