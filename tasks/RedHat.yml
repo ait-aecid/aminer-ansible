@@ -45,3 +45,9 @@
     name: statsmodels
     executable: pip3
     state: latest
+
+- name: Link yaml
+  file:
+    src: "/usr/lib64/python3.9/site-packages/yaml"
+    dest: "/etc/aminer/conf-enabled/yaml"
+    state: link
