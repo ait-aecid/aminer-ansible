@@ -140,7 +140,7 @@
 
 - name: Find zmq
   find:
-    paths: "/usr"
+    paths: "{{aminer_pythonpath}}"
     patterns: 'zmq'
     recurse: yes
     file_type: "directory"
@@ -148,7 +148,7 @@
 
 - name: Find pyzmq.libs
   find:
-    paths: "/usr"
+    paths: "{{aminer_pythonpath}}"
     patterns: 'pyzmq.libs'
     recurse: yes
     file_type: "directory"
@@ -171,7 +171,7 @@
 
 - name: Find json.cpython
   find:
-    paths: "/usr"
+    paths: "{{aminer_pythonpath}}"
     patterns: 'orjson.cpython*.so'
     recurse: yes
     file_type: "any"
@@ -186,7 +186,7 @@
 
 - name: Find pylibacl
   find:
-    paths: "/usr"
+    paths: "{{aminer_pythonpath}}"
     patterns: 'posix1e.cpython*.so'
     recurse: yes
     file_type: "any"
@@ -201,7 +201,7 @@
 
 - name: Find scipy
   find:
-    paths: {{aminer_pythonpath}}
+    paths: "{{aminer_pythonpath}}"
     patterns: 'scipy'
     recurse: yes
     file_type: "directory"
@@ -216,7 +216,7 @@
 
 - name: Find cerberus
   find:
-    paths: {{aminer_pythonpath}}
+    paths: "{{aminer_pythonpath}}"
     patterns: 'cerberus'
     recurse: yes
     file_type: "directory"
@@ -231,7 +231,7 @@
 
 - name: Find kafka
   find:
-    paths: {{aminer_pythonpath}}
+    paths: "{{aminer_pythonpath}}"
     patterns: 'kafka'
     recurse: yes
     file_type: "directory"
@@ -246,7 +246,7 @@
 
 - name: Find numpy
   find:
-    paths: {{aminer_pythonpath}}
+    paths: "{{aminer_pythonpath}}"
     patterns: 'numpy'
     recurse: yes
     file_type: "directory"
@@ -267,7 +267,7 @@
 
 - name: Find yaml
   find:
-    paths: {{aminer_pythonpath}}
+    paths: "{{aminer_pythonpath}}"
     patterns: 'yaml'
     recurse: yes
     file_type: "directory"
@@ -282,7 +282,7 @@
 
 - name: Find pytz
   find:
-    paths: {{aminer_pythonpath}}
+    paths: "{{aminer_pythonpath}}"
     patterns: 'pytz'
     recurse: yes
     file_type: "directory"
@@ -297,7 +297,7 @@
 
 - name: Find python3-dateutil
   find:
-    paths: {{aminer_pythonpath}}
+    paths: "{{aminer_pythonpath}}"
     patterns: 'dateutil'
     recurse: yes
     file_type: "directory"
@@ -312,7 +312,7 @@
 
 - name: Find patsy
   find:
-    paths: {{aminer_pythonpath}}
+    paths: "{{aminer_pythonpath}}"
     patterns: 'patsy'
     recurse: yes
     file_type: "directory"
@@ -327,7 +327,7 @@
 
 - name: Find six
   find:
-    paths: {{aminer_pythonpath}}
+    paths: "{{aminer_pythonpath}}"
     patterns: 'six'
     recurse: yes
     file_type: "any"
@@ -342,7 +342,7 @@
 
 - name: Find statsmodels
   find:
-    paths: {{aminer_pythonpath}}
+    paths: "{{aminer_pythonpath}}"
     patterns: 'statsmodels'
     recurse: yes
     file_type: "directory"
@@ -357,7 +357,7 @@
 
 - name: Find defusedxml
   find:
-    paths: {{aminer_pythonpath}}
+    paths: "{{aminer_pythonpath}}"
     patterns: 'defusedxml'
     recurse: yes
     file_type: "directory"
