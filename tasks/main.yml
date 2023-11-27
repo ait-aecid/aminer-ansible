@@ -264,20 +264,11 @@
     state: link
   with_items: "{{numpy.files }}"
 
-- name: Find python3-pkg_resources
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'pkg_resources'
-    recurse: yes
-    file_type: "directory"
-  register: pkg_resources
-
 - name: Link python3-pkg_resources
   file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    src: "{{aminer_pythonpath[0]}}/pkg_resources"
+    dest: "/etc/aminer/conf-enabled/pkg_resources"
     state: link
-  with_items: "{{pkg_resources.files }}"
 
 - name: Find yaml
   find:

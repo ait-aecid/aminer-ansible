@@ -24,4 +24,4 @@ aminer_packages:
         - libacl1-dev
         - mypy
 aminer_usershell: /usr/sbin/nologin
-aminer_pythonpath: ['/usr/local/lib/python3.11/dist-packages', '/usr/lib/python3/dist-packages', '/usr/lib/python3.11/dist-packages']
+aminer_pythonpath: ['/usr/lib/python3/dist-packages', '/usr/local/lib/python3.11/dist-packages', '/usr/lib/python3.11/dist-packages']
