@@ -7,12 +7,17 @@
 
 - name: Include Debian-Buster Variables
   include_vars: debian-buster.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version == '10'
   tags: vars
 
-- name: Include Debian Variables
-  include_vars: debian.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version >= '11'
+- name: Include Debian Bullseye Variables
+  include_vars: debian-bullseye.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version == '11'
+  tags: vars
+
+- name: Include Debian Bookworm Variables
+  include_vars: debian-bookworm.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version == '12'
   tags: vars
 
 - name: Include Ubuntu Variables
@@ -339,7 +344,6 @@
     paths: "{{aminer_pythonpath}}"
     patterns: 'six'
     recurse: yes
-    file_type: "any"
   register: six
 
 - name: Link six
@@ -379,13 +383,9 @@
     state: link
   with_items: "{{defusedxml.files }}"
 
-- name: Run Buster Tasks
+- name: Run Debian  Tasks
   include_tasks: debian.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
-
-- name: Run Debian > 10  Tasks
-  include_tasks: debian.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version > '10'
+  when: ansible_distribution == "Debian"
 
 - name: Run Ubuntu > 18 Tasks
   include_tasks: debian.yml
