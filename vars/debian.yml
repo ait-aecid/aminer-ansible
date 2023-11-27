@@ -14,7 +14,6 @@ aminer_packages:
         - python3-statsmodels
         - python3-defusedxml
         - python3-yaml
-        - python3-pandas
         - python3-patsy
         - python3-six
         - libzmq3-dev
@@ -25,3 +24,4 @@ aminer_packages:
         - libacl1-dev
         - mypy
 aminer_usershell: /usr/sbin/nologin
+aminer_pythonpath: ['/usr/local/lib/python3.11/dist-packages', '/usr/lib/python3/dist-packages', '/usr/lib/python3.11/dist-packages']

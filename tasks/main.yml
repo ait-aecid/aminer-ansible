@@ -123,7 +123,7 @@
     mode: 0755
 
 - name: Run Buster Tasks
-  include_tasks: buster.yml
+  include_tasks: debian-buster.yml
   when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
 
 - name: Install orjson
@@ -201,7 +201,7 @@
 
 - name: Find scipy
   find:
-    paths: "/usr"
+    paths: {{aminer_pythonpath}}
     patterns: 'scipy'
     recurse: yes
     file_type: "directory"
@@ -216,7 +216,7 @@
 
 - name: Find cerberus
   find:
-    paths: "/usr"
+    paths: {{aminer_pythonpath}}
     patterns: 'cerberus'
     recurse: yes
     file_type: "directory"
@@ -231,7 +231,7 @@
 
 - name: Find kafka
   find:
-    paths: "/usr"
+    paths: {{aminer_pythonpath}}
     patterns: 'kafka'
     recurse: yes
     file_type: "directory"
@@ -246,7 +246,7 @@
 
 - name: Find numpy
   find:
-    paths: "/usr"
+    paths: {{aminer_pythonpath}}
     patterns: 'numpy'
     recurse: yes
     file_type: "directory"
@@ -267,7 +267,7 @@
 
 - name: Find yaml
   find:
-    paths: "/usr"
+    paths: {{aminer_pythonpath}}
     patterns: 'yaml'
     recurse: yes
     file_type: "directory"
@@ -282,7 +282,7 @@
 
 - name: Find pytz
   find:
-    paths: "/usr"
+    paths: {{aminer_pythonpath}}
     patterns: 'pytz'
     recurse: yes
     file_type: "directory"
@@ -297,7 +297,7 @@
 
 - name: Find python3-dateutil
   find:
-    paths: "/usr"
+    paths: {{aminer_pythonpath}}
     patterns: 'dateutil'
     recurse: yes
     file_type: "directory"
@@ -310,39 +310,9 @@
     state: link
   with_items: "{{dateutil.files }}"
 
-- name: Find pandas
-  find:
-    paths: "/usr"
-    patterns: 'pandas'
-    recurse: yes
-    file_type: "directory"
-  register: pandas
-
-- name: Link pandas
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{pandas.files }}"
-
-- name: Find joblib
-  find:
-    paths: "/usr"
-    patterns: 'joblib'
-    recurse: yes
-    file_type: "directory"
-  register: joblib
-
-- name: Link joblib
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{joblib.files }}"
-
 - name: Find patsy
   find:
-    paths: "/usr"
+    paths: {{aminer_pythonpath}}
     patterns: 'patsy'
     recurse: yes
     file_type: "directory"
@@ -357,7 +327,7 @@
 
 - name: Find six
   find:
-    paths: "/usr"
+    paths: {{aminer_pythonpath}}
     patterns: 'six'
     recurse: yes
     file_type: "any"
@@ -372,7 +342,7 @@
 
 - name: Find statsmodels
   find:
-    paths: "/usr"
+    paths: {{aminer_pythonpath}}
     patterns: 'statsmodels'
     recurse: yes
     file_type: "directory"
@@ -387,7 +357,7 @@
 
 - name: Find defusedxml
   find:
-    paths: "/usr"
+    paths: {{aminer_pythonpath}}
     patterns: 'defusedxml'
     recurse: yes
     file_type: "directory"
