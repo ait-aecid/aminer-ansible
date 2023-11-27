@@ -14,7 +14,6 @@ aminer_packages:
         - python3-statsmodels
         - python3-defusedxml
         - python3-yaml
-        - python3-pandas
         - python3-patsy
         - python3-six
         - cppzmq-devel
