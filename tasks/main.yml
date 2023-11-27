@@ -342,7 +342,7 @@
 - name: Find six
   find:
     paths: "{{aminer_pythonpath}}"
-    patterns: 'six'
+    patterns: 'six.py'
     recurse: yes
   register: six
 
