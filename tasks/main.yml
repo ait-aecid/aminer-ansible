@@ -129,7 +129,7 @@
 
 - name: Run Buster Tasks
   include_tasks: debian-buster.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version == '10'
 
 - name: Install orjson
   pip:
@@ -172,7 +172,6 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{pyzmqlibs.files }}"
-
 
 - name: Find json.cpython
   find:
@@ -275,6 +274,7 @@
     src: "{{aminer_pythonpath[0]}}/yaml"
     dest: "/etc/aminer/conf-enabled/yaml"
     state: link
+  when: ansible_distribution == "Debian"
 
 - name: Find pytz
   find:
