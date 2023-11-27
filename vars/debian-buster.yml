@@ -13,7 +13,6 @@ aminer_packages:
         - python3-defusedxml
         - python3-yaml
         - python3-patsy
-        - python3-six
         - libzmq3-dev
         - xsltproc
         - docbook-xsl
@@ -22,3 +21,4 @@ aminer_packages:
         - libacl1-dev
         - mypy
 aminer_usershell: /usr/sbin/nologin
+aminer_pythonpath: ['/usr/lib/python3/dist-packages', '/usr/local/lib/python3.7/dist-packages', '/usr/lib/python3.7/dist-packages']
