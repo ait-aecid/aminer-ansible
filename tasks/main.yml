@@ -343,7 +343,6 @@
   find:
     paths: "{{aminer_pythonpath}}"
     patterns: 'six.py'
-    recurse: yes
   register: six
 
 - name: Link six
