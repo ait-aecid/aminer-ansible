@@ -270,20 +270,11 @@
     dest: "/etc/aminer/conf-enabled/pkg_resources"
     state: link
 
-- name: Find yaml
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'yaml'
-    recurse: yes
-    file_type: "directory"
-  register: yaml
-
 - name: Link yaml
   file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    src: "{{aminer_pythonpath[0]}}/yaml"
+    dest: "/etc/aminer/conf-enabled/yaml"
     state: link
-  with_items: "{{yaml.files }}"
 
 - name: Find pytz
   find:
@@ -373,13 +364,13 @@
     state: link
   with_items: "{{defusedxml.files }}"
 
-- name: Run Debian  Tasks
-  include_tasks: debian.yml
-  when: ansible_distribution == "Debian"
-
-- name: Run Ubuntu > 18 Tasks
-  include_tasks: debian.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
+#- name: Run Debian  Tasks
+#  include_tasks: debian.yml
+#  when: ansible_distribution == "Debian"
+#
+#- name: Run Ubuntu > 18 Tasks
+#  include_tasks: debian.yml
+#  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
 
 - name: Run RedHat Tasks
   include_tasks: RedHat.yml
