@@ -22,46 +22,20 @@
     executable: pip3
     state: latest
 
-- name: Find importlib-metadata
-  find:
-    paths: "/usr"
-    patterns: 'importlib_metadata'
-    recurse: yes
-    file_type: "directory"
-  register: importlib
-
 - name: Link importlib-metadata
   file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    src: "{{aminer_pythonpath[0]}}/importlib_metadata"
+    dest: "/etc/aminer/conf-enabled/importlib_metadata"
     state: link
-  with_items: "{{importlib.files }}"
-
-- name: Find zipp
-  find:
-    paths: "/usr"
-    patterns: 'zipp'
-    recurse: yes
-    file_type: "directory"
-  register: zipp
 
 - name: Link zipp
   file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    src: "{{aminer_pythonpath[0]}}/zipp"
+    dest: "/etc/aminer/conf-enabled/zipp"
     state: link
-  with_items: "{{zipp.files }}"
-
-- name: Find typing-extensions
-  find:
-    paths: "/usr"
-    patterns: 'typing_extensions.py'
-    recurse: yes
-  register: typing
 
 - name: Link typing-extensions
   file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    src: "{{aminer_pythonpath[0]}}/typing_extensions.py"
+    dest: "/etc/aminer/conf-enabled/typing_extensions.py"
     state: link
-  with_items: "{{typing.files }}"
