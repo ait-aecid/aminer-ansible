@@ -24,18 +24,18 @@
 
 - name: Link importlib-metadata
   file:
-    src: "{{aminer_pythonpath[0]}}/importlib_metadata"
+    src: "{{aminer_pythonpath[1]}}/importlib_metadata"
     dest: "/etc/aminer/conf-enabled/importlib_metadata"
     state: link
 
 - name: Link zipp
   file:
-    src: "{{aminer_pythonpath[0]}}/zipp"
+    src: "{{aminer_pythonpath[1]}}/zipp"
     dest: "/etc/aminer/conf-enabled/zipp"
     state: link
 
 - name: Link typing-extensions
   file:
-    src: "{{aminer_pythonpath[0]}}/typing_extensions.py"
+    src: "{{aminer_pythonpath[1]}}/typing_extensions.py"
     dest: "/etc/aminer/conf-enabled/typing_extensions.py"
     state: link
