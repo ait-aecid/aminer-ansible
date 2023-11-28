@@ -1,0 +1,5 @@
+- name: Link yaml
+  file:
+    src: "{{aminer_pythonpath[1]}}/yaml"
+    dest: "/etc/aminer/conf-enabled/yaml"
+    state: link
