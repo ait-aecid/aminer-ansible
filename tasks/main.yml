@@ -7,17 +7,32 @@
 
 - name: Include Debian-Buster Variables
   include_vars: debian-buster.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version == '10'
   tags: vars
 
-- name: Include Debian Variables
-  include_vars: debian.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version >= '11'
+- name: Include Debian Bullseye Variables
+  include_vars: debian-bullseye.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version == '11'
+  tags: vars
+
+- name: Include Debian Bookworm Variables
+  include_vars: debian-bookworm.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version == '12'
   tags: vars
 
 - name: Include Ubuntu Variables
   include_vars: debian.yml
   when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
+  tags: vars
+
+- name: Include Fedora Variables
+  include_vars: fedora.yml
+  when: ansible_distribution == "Fedora"
+  tags: vars
+
+- name: Include RedHat Variables
+  include_vars: RedHat.yml
+  when: ansible_distribution == "RedHat"
   tags: vars
 
 
@@ -113,41 +128,37 @@
     mode: 0755
 
 - name: Run Buster Tasks
-  include: buster.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version < '11'
-
-- name: Run Debian > 10  Tasks
-  include: debian.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version > '10'
-
-- name: Run Ubuntu > 18 Tasks
-  include: debian.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
+  include_tasks: debian-buster.yml
+  when: ansible_distribution == "Debian" and ansible_distribution_major_version == '10'
 
 - name: Install orjson
   pip:
     name: orjson
     executable: pip3
     state: latest
+    extra_args: "--break-system-packages"
 
 - name: Install pyzmq
   pip:
     name: pyzmq
     executable: pip3
     state: latest
+    extra_args: "--break-system-packages"
 
 - name: Find zmq
   find:
-    paths: "/usr"
+    paths: "{{aminer_pythonpath}}"
     patterns: 'zmq'
     recurse: yes
+    file_type: "directory"
   register: zmq
 
 - name: Find pyzmq.libs
   find:
-    paths: "/usr"
+    paths: "{{aminer_pythonpath}}"
     patterns: 'pyzmq.libs'
     recurse: yes
+    file_type: "directory"
   register: pyzmqlibs
 
 - name: Link zmq
@@ -164,12 +175,12 @@
     state: link
   with_items: "{{pyzmqlibs.files }}"
 
-
 - name: Find json.cpython
   find:
-    paths: "/usr"
+    paths: "{{aminer_pythonpath}}"
     patterns: 'orjson.cpython*.so'
     recurse: yes
+    file_type: "any"
   register: orjson
 
 - name: Link orjson
@@ -183,6 +194,8 @@
   find:
     paths: "{{aminer_pythonpath}}"
     patterns: 'posix1e.cpython*.so'
+    recurse: yes
+    file_type: "any"
   register: output
 
 - name: Link pylibacl
@@ -191,90 +204,192 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{output.files }}"
-                                           
-- name: Link scipy                         
-  file:                                    
-    src: "{{aminer_pythonpath}}/scipy"     
-    dest: /etc/aminer/conf-enabled/scipy   
-    state: link                            
+
+- name: Find scipy
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'scipy'
+    recurse: yes
+    file_type: "directory"
+  register: scipy
+
+- name: Link scipy
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{scipy.files }}"
+
+- name: Find cerberus
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'cerberus'
+    recurse: yes
+    file_type: "directory"
+  register: cerberus
+
+- name: Link cerberus
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{cerberus.files }}"
+
+- name: Find kafka
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'kafka'
+    recurse: yes
+    file_type: "directory"
+  register: kafka
+
+- name: Link kafka
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{kafka.files }}"
+
+- name: Find numpy
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'numpy'
+    recurse: yes
+    file_type: "directory"
+  register: numpy
 
 - name: Link numpy
   file:
-    src: "{{aminer_pythonpath}}/numpy"
-    dest: /etc/aminer/conf-enabled/numpy
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
+  with_items: "{{numpy.files }}"
 
 - name: Link python3-pkg_resources
   file:
-    src: "{{aminer_pkgrespath}}/pkg_resources"
-    dest: /etc/aminer/conf-enabled/pkg_resources
+    src: "{{aminer_pythonpath[0]}}/pkg_resources"
+    dest: "/etc/aminer/conf-enabled/pkg_resources"
     state: link
 
-- name: Link python3-yaml
+- name: Link yaml
   file:
-    src: "{{aminer_pythonpath}}/yaml"
-    dest: /etc/aminer/conf-enabled/yaml
+    src: "{{aminer_pythonpath[0]}}/yaml"
+    dest: "/etc/aminer/conf-enabled/yaml"
     state: link
+  when: ansible_distribution == "Debian"
 
-- name: Link python3-tz
+- name: Find pytz
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'pytz'
+    recurse: yes
+    file_type: "directory"
+  register: pytz
+
+- name: Link pytz
   file:
-    src: "{{aminer_pythonpath}}/pytz"
-    dest: /etc/aminer/conf-enabled/pytz
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
+  with_items: "{{pytz.files }}"
+
+- name: Find python3-dateutil
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'dateutil'
+    recurse: yes
+    file_type: "directory"
+  register: dateutil
 
 - name: Link python3-dateutil
   file:
-    src: "{{aminer_pythonpath}}/dateutil"
-    dest: /etc/aminer/conf-enabled/dateutil
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
+  with_items: "{{dateutil.files }}"
 
-- name: Link pandas
-  file:
-    src: "{{aminer_pythonpath}}/pandas"
-    dest: /etc/aminer/conf-enabled/pandas
-    state: link
-
-- name: Link joblib
-  file:
-    src: "{{aminer_pythonpath}}/joblib"
-    dest: /etc/aminer/conf-enabled/joblib
-    state: link
+- name: Find patsy
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'patsy'
+    recurse: yes
+    file_type: "directory"
+  register: patsy
 
 - name: Link patsy
   file:
-    src: "{{aminer_pythonpath}}/patsy"
-    dest: /etc/aminer/conf-enabled/patsy
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
+  with_items: "{{patsy.files }}"
 
+- name: Find six
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'six.py'
+  register: six
 
-- name: Link python3-six
+- name: Link six
   file:
-    src: "{{aminer_pythonpath}}/six.py"
-    dest: /etc/aminer/conf-enabled/six.py
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
+  with_items: "{{six.files }}"
 
-- name: Link python3-statsmodels
-  file:
-    src: "{{aminer_pythonpath}}/statsmodels"
-    dest: /etc/aminer/conf-enabled/statsmodels
-    state: link
+- name: Find statsmodels
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'statsmodels'
+    recurse: yes
+    file_type: "directory"
+  register: statsmodels
 
-- name: Link python3-defusedxml
+- name: Link statsmodels
   file:
-    src: "{{aminer_pythonpath}}/defusedxml"
-    dest: /etc/aminer/conf-enabled/defusedxml
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
+  with_items: "{{statsmodels.files }}"
+
+- name: Find defusedxml
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'defusedxml'
+    recurse: yes
+    file_type: "directory"
+  register: defusedxml
+
+- name: Link defusedxml
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{defusedxml.files }}"
+
+#- name: Run Debian  Tasks
+#  include_tasks: debian.yml
+#  when: ansible_distribution == "Debian"
+#
+#- name: Run Ubuntu > 18 Tasks
+#  include_tasks: debian.yml
+#  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
+
+- name: Run RedHat Tasks
+  include_tasks: RedHat.yml
+  when: ansible_distribution == "RedHat"
+
+- name: Run Fedora Tasks
+  include_tasks: fedora.yml
+  when: ansible_distribution == "Fedora"
 
 - name: Create man-page for aminer
   shell:
-    cmd: xsltproc --output /usr/share/man/man1/aminer.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/docs/manpages/aminer.1.xml && gzip /usr/share/man/man1/aminer.1
+    cmd: xsltproc --output /usr/share/man/man1/aminer.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" {{aminer_docbookxslpath}} {{aminer_repopath}}/docs/manpages/aminer.1.xml && gzip /usr/share/man/man1/aminer.1
     creates: /usr/share/man/man1/aminer.1.gz
+  when: ansible_distribution != "RedHat"
 
 - name: Create man-page for aminerremotecontrol
   shell:
-    cmd: xsltproc --output /usr/share/man/man1/aminerremotecontrol.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" /usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl {{aminer_repopath}}/docs/manpages/aminerremotecontrol.1.xml && gzip /usr/share/man/man1/aminerremotecontrol.1
+    cmd: xsltproc --output /usr/share/man/man1/aminerremotecontrol.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" {{aminer_docbookxslpath}} {{aminer_repopath}}/docs/manpages/aminerremotecontrol.1.xml && gzip /usr/share/man/man1/aminerremotecontrol.1
     creates: /usr/share/man/man1/aminerremotecontrol.1.gz
-
-# - name: Run RedHat Tasks
-#   include: RedHat.yml
-#   when: ansible_os_family == 'RedHat'
+  when: ansible_distribution != "RedHat"
