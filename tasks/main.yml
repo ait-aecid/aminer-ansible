@@ -136,12 +136,14 @@
     name: orjson
     executable: pip3
     state: latest
+    extra_args: "--break-system-packages"
 
 - name: Install pyzmq
   pip:
     name: pyzmq
     executable: pip3
     state: latest
+    extra_args: "--break-system-packages"
 
 - name: Find zmq
   find:
