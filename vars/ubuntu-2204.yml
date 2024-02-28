@@ -1,0 +1,26 @@
+aminer_packages:
+        - python3
+        - python3-pip
+        - python3-tz
+        - python3-scipy
+        - python3-numpy
+        - python3-pkg-resources
+        - python3-setuptools
+        - python3-dateutil
+        - python3-six
+        - python3-cerberus
+        - python3-kafka
+        - python3-urllib3
+        - python3-statsmodels
+        - python3-defusedxml
+        - python3-yaml
+        - python3-patsy
+        - libzmq3-dev
+        - xsltproc
+        - docbook-xsl
+        - gzip
+        - python3-pylibacl
+        - libacl1-dev
+        - mypy
+aminer_usershell: /usr/sbin/nologin
+aminer_pythonpath: ['/usr/lib/python3/dist-packages', '/usr/local/lib/python3.10/dist-packages', '/usr/lib/python3.10/dist-packages']
