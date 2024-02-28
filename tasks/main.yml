@@ -20,9 +20,14 @@
   when: ansible_distribution == "Debian" and ansible_distribution_major_version == '12'
   tags: vars
 
-- name: Include Ubuntu Variables
-  include_vars: debian.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
+- name: Include Ubuntu 22.04 Variables
+  include_vars: ubuntu-2204.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == '22'
+  tags: vars
+
+- name: Include Ubuntu 20.04 Variables
+  include_vars: ubuntu-2004.yml
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == '20'
   tags: vars
 
 - name: Include Fedora Variables
@@ -365,14 +370,6 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{defusedxml.files }}"
-
-#- name: Run Debian  Tasks
-#  include_tasks: debian.yml
-#  when: ansible_distribution == "Debian"
-#
-#- name: Run Ubuntu > 18 Tasks
-#  include_tasks: debian.yml
-#  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version >= '20'
 
 - name: Run RedHat Tasks
   include_tasks: RedHat.yml
