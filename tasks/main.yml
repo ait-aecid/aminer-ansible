@@ -181,8 +181,8 @@
 - name: Find json.cpython
   find:
     paths: "{{aminer_pythonpath}}"
-    patterns: 'orjson.cpython*.so'
-    file_type: "any"
+    patterns: 'orjson'
+    file_type: "directory"
   register: orjson
 
 - name: Link orjson
