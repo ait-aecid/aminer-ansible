@@ -262,12 +262,6 @@
     state: link
   with_items: "{{numpy.files }}"
 
-- name: Link python3-pkg_resources
-  file:
-    src: "{{aminer_pythonpath[0]}}/pkg_resources"
-    dest: "/etc/aminer/conf-enabled/pkg_resources"
-    state: link
-
 - name: Link yaml
   file:
     src: "{{aminer_pythonpath[0]}}/yaml"

@@ -4,7 +4,6 @@ aminer_packages:
         - python3-pytz
         - python3-scipy
         - python3-numpy
-        - python3-pkg-resources
         - python3-setuptools
         - python3-dateutil
         - python3-six
