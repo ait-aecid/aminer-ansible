@@ -7,7 +7,6 @@ aminer_packages:
         - python3-setuptools
         - python3-dateutil
         - python3-six
-        - python3-cerberus
         - python3-urllib3
         - python3-defusedxml
         - python3-yaml

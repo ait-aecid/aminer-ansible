@@ -150,6 +150,13 @@
     state: latest
     extra_args: "{{pip_extra_args}}"
 
+- name: Install python3-cerberus
+  pip:
+    name: cerberus
+    executable: pip3
+    state: latest
+    extra_args: "{{pip_extra_args}}"
+
 - name: Find zmq
   find:
     paths: "{{aminer_pythonpath}}"
