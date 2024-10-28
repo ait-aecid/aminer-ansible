@@ -171,6 +171,13 @@
     file_type: "directory"
   register: pyzmqlibs
 
+- name: Find cerberus
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'cerberus'
+    file_type: "directory"
+  register: cerberus
+
 - name: Link zmq
   file:
     src: "{{ item.path }}"
@@ -184,6 +191,13 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{pyzmqlibs.files }}"
+
+- name: Link cerberus
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{cerberus.files }}"
 
 - name: Find json.cpython
   find:
@@ -226,20 +240,6 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{scipy.files }}"
-
-- name: Find cerberus
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'cerberus'
-    file_type: "directory"
-  register: cerberus
-
-- name: Link cerberus
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{cerberus.files }}"
 
 - name: Find kafka
   find:
