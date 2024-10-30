@@ -150,6 +150,13 @@
     state: latest
     extra_args: "{{pip_extra_args}}"
 
+- name: Install python3-cerberus
+  pip:
+    name: cerberus
+    executable: pip3
+    state: latest
+    extra_args: "{{pip_extra_args}}"
+
 - name: Find zmq
   find:
     paths: "{{aminer_pythonpath}}"
@@ -164,6 +171,13 @@
     file_type: "directory"
   register: pyzmqlibs
 
+- name: Find cerberus
+  find:
+    paths: "{{aminer_pythonpath}}"
+    patterns: 'cerberus'
+    file_type: "directory"
+  register: cerberus
+
 - name: Link zmq
   file:
     src: "{{ item.path }}"
@@ -177,6 +191,13 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{pyzmqlibs.files }}"
+
+- name: Link cerberus
+  file:
+    src: "{{ item.path }}"
+    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
+    state: link
+  with_items: "{{cerberus.files }}"
 
 - name: Find json.cpython
   find:
@@ -220,20 +241,6 @@
     state: link
   with_items: "{{scipy.files }}"
 
-- name: Find cerberus
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'cerberus'
-    file_type: "directory"
-  register: cerberus
-
-- name: Link cerberus
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{cerberus.files }}"
-
 - name: Find kafka
   find:
     paths: "{{aminer_pythonpath}}"
@@ -261,12 +268,6 @@
     dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
     state: link
   with_items: "{{numpy.files }}"
-
-- name: Link python3-pkg_resources
-  file:
-    src: "{{aminer_pythonpath[0]}}/pkg_resources"
-    dest: "/etc/aminer/conf-enabled/pkg_resources"
-    state: link
 
 - name: Link yaml
   file:

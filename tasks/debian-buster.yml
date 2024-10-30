@@ -4,12 +4,6 @@
     executable: pip3
     state: latest
 
-- name: Install python3-cerberus
-  pip:
-    name: cerberus
-    executable: pip3
-    state: latest
-
 - name: Install python3-kafka
   pip:
     name: kafka-python
