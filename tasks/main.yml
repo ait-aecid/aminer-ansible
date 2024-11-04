@@ -274,7 +274,7 @@
     src: "{{aminer_pythonpath[0]}}/yaml"
     dest: "/etc/aminer/conf-enabled/yaml"
     state: link
-  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu" or ansible_distribution == "Fedora"
 
 - name: Find pytz
   find:
