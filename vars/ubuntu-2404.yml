@@ -22,3 +22,4 @@ aminer_packages:
         - mypy
 aminer_usershell: /usr/sbin/nologin
 aminer_pythonpath: ['/usr/lib/python3/dist-packages', '/usr/local/lib/python3.12/dist-packages', '/usr/lib/python3.12/dist-packages']
+pip_extra_args: "--break-system-packages"
