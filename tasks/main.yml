@@ -213,9 +213,9 @@
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
-- name: Install yaml
+- name: Install PyYAML
   pip:
-    name: yaml
+    name: PyYAML
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
