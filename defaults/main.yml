@@ -3,6 +3,7 @@ aminer_tools:
         - rsync
         - python3
         - python3-pip
+        - python3-virtualenv
         - gzip
 aminer_repopath: "/opt/aminer"
 aminer_gitrepo: "https://github.com/ait-aecid/logdata-anomaly-miner.git"

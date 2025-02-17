@@ -111,12 +111,6 @@
     group: root
     mode: 0755
 
-- name: Install virtualenv
-  pip:
-    name: virtualenv
-    executable: pip3
-    state: latest
-
 - name: Install orjson
   pip:
     name: orjson
