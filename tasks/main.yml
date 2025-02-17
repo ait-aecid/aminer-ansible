@@ -183,9 +183,9 @@
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
-- name: Install dateutil
+- name: Install python-dateutil
   pip:
-    name: dateutil
+    name: python-dateutil
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
