@@ -3,4 +3,5 @@ aminer_packages:
         - xsltproc
         - docbook-xsl
         - libacl-devel
+        - gcc
 aminer_docbookxslpath: "/usr/share/sgml/docbook/xsl-stylesheets-1.79.2/html/docbook.xsl"
