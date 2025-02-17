@@ -5,34 +5,9 @@
 #     - "{{ ansible_os_family }}.yml"
 #   tags: vars
 
-- name: Include Debian-Buster Variables
-  include_vars: debian-buster.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version == '10'
-  tags: vars
-
-- name: Include Debian Bullseye Variables
-  include_vars: debian-bullseye.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version == '11'
-  tags: vars
-
-- name: Include Debian Bookworm Variables
-  include_vars: debian-bookworm.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version == '12'
-  tags: vars
-
-- name: Include Ubuntu 24.04 Variables
-  include_vars: ubuntu-2404.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == '24'
-  tags: vars
-
-- name: Include Ubuntu 22.04 Variables
-  include_vars: ubuntu-2204.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == '22'
-  tags: vars
-
-- name: Include Ubuntu 20.04 Variables
-  include_vars: ubuntu-2004.yml
-  when: ansible_distribution == "Ubuntu" and ansible_distribution_major_version == '20'
+- name: Include Debian Variables
+  include_vars: debian.yml
+  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
   tags: vars
 
 - name: Include Fedora Variables
@@ -57,7 +32,6 @@
     name: "{{aminer_tools}}"
     state: latest
   tags: install
-
 
 - name: Git clone OpenSource-Aminer
   git:
@@ -137,240 +111,137 @@
     group: root
     mode: 0755
 
-- name: Run Buster Tasks
-  include_tasks: debian-buster.yml
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version == '10'
-
 - name: Install orjson
   pip:
     name: orjson
-    executable: pip3
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
-    extra_args: "{{pip_extra_args}}"
 
 - name: Install pyzmq
   pip:
     name: pyzmq
-    executable: pip3
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
-    extra_args: "{{pip_extra_args}}"
 
 - name: Install python3-cerberus
   pip:
     name: cerberus
-    executable: pip3
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
-    extra_args: "{{pip_extra_args}}"
 
-- name: Find zmq
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'zmq'
-    file_type: "directory"
-  register: zmq
+- name: pip self-update
+  pip:
+    name: pip
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Find pyzmq.libs
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'pyzmq.libs'
-    file_type: "directory"
-  register: pyzmqlibs
+- name: Install python3-kafka
+  pip:
+    name: kafka-python
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Find cerberus
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'cerberus'
-    file_type: "directory"
-  register: cerberus
+- name: Install python3-patsy
+  pip:
+    name: patsy
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Link zmq
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{zmq.files }}"
+- name: Install python3-statsmodels
+  pip:
+    name: statsmodels
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Link pyzmq.libs
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{pyzmqlibs.files }}"
+- name: Install importlib-metadata
+  pip:
+    name: importlib-metadata
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Link cerberus
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{cerberus.files }}"
+- name: Install tz
+  pip:
+    name: tz
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Find json.cpython
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'orjson'
-    file_type: "directory"
-  register: orjson
+- name: Install scipy
+  pip:
+    name: scipy
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Link orjson
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{orjson.files }}"
+- name: Install numpy
+  pip:
+    name: numpy
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Find pylibacl
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'posix1e.cpython*.so'
-    file_type: "any"
-  register: output
+- name: Install setuptools
+  pip:
+    name: setuptools
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Link pylibacl
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{output.files }}"
+- name: Install dateutil
+  pip:
+    name: dateutil
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Find scipy
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'scipy'
-    file_type: "directory"
-  register: scipy
+- name: Install six
+  pip:
+    name: six
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Link scipy
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{scipy.files }}"
+- name: Install kafka
+  pip:
+    name: kafka
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Find kafka
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'kafka'
-    file_type: "directory"
-  register: kafka
+- name: Install urllib3
+  pip:
+    name: urllib3
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Link kafka
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{kafka.files }}"
+- name: Install defusedxml
+  pip:
+    name: defusedxml
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Find numpy
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'numpy'
-    file_type: "directory"
-  register: numpy
+- name: Install yaml
+  pip:
+    name: yaml
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Link numpy
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{numpy.files }}"
+- name: Install patsy
+  pip:
+    name: patsy
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Link yaml
-  file:
-    src: "{{aminer_pythonpath[0]}}/yaml"
-    dest: "/etc/aminer/conf-enabled/yaml"
-    state: link
-  when: ansible_distribution == "Debian" or ansible_distribution == "Ubuntu"
+- name: Install pylibacl
+  pip:
+    name: pylibacl
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Find pytz
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'pytz'
-    file_type: "directory"
-  register: pytz
+- name: Install mypy
+  pip:
+    name: mypy
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
-- name: Link pytz
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{pytz.files }}"
-
-- name: Find python3-dateutil
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'dateutil'
-    file_type: "directory"
-  register: dateutil
-
-- name: Link python3-dateutil
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{dateutil.files }}"
-
-- name: Find patsy
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'patsy'
-    file_type: "directory"
-  register: patsy
-
-- name: Link patsy
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{patsy.files }}"
-
-- name: Find six
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'six.py'
-  register: six
-
-- name: Link six
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{six.files }}"
-
-- name: Find statsmodels
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'statsmodels'
-    file_type: "directory"
-  register: statsmodels
-
-- name: Link statsmodels
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{statsmodels.files }}"
-
-- name: Find defusedxml
-  find:
-    paths: "{{aminer_pythonpath}}"
-    patterns: 'defusedxml'
-    file_type: "directory"
-  register: defusedxml
-
-- name: Link defusedxml
-  file:
-    src: "{{ item.path }}"
-    dest: "/etc/aminer/conf-enabled/{{item.path.split('/')[-1]}}"
-    state: link
-  with_items: "{{defusedxml.files }}"
-
-- name: Run RedHat Tasks
-  include_tasks: RedHat.yml
-  when: ansible_distribution == "RedHat"
-
-- name: Run Fedora Tasks
-  include_tasks: fedora.yml
-  when: ansible_distribution == "Fedora"
+- name: Install pytz
+  pip:
+    name: pytz
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
 
 - name: Create man-page for aminer
   shell:
