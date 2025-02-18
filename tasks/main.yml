@@ -230,6 +230,7 @@
     name: pylibacl
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
+  when: ansible_distribution != "RedHat"
 
 - name: Install mypy
   pip:
