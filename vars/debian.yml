@@ -1,0 +1,5 @@
+aminer_packages:
+        - libzmq3-dev
+        - xsltproc
+        - docbook-xsl
+        - libacl1-dev

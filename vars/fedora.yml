@@ -1,25 +1,8 @@
 aminer_packages:
-        - python3
-        - python3-pip
-        - python3-pytz
-        - python3-scipy
-        - python3-numpy
-        - python3-setuptools
-        - python3-dateutil
-        - python3-six
-        - python3-kafka
-        - python3-urllib3
-        - python3-statsmodels
-        - python3-defusedxml
-        - python3-yaml
-        - python3-patsy
         - cppzmq-devel
         - xsltproc
         - docbook-xsl
-        - gzip
-        - python3-pylibacl
         - libacl-devel
-        - python3-mypy
-aminer_usershell: /usr/sbin/nologin
-aminer_pythonpath: ['/usr/lib/python3.13/site-packages', '/usr/lib64/python3.13/site-packages', '/usr/local/lib64/python3.13/site-packages', '/usr/local/lib/python3.13/site-packages']
+        - gcc
+        - python3-devel
 aminer_docbookxslpath: "/usr/share/sgml/docbook/xsl-stylesheets-1.79.2/html/docbook.xsl"

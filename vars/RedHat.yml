@@ -1,19 +1,4 @@
 aminer_packages:
-        - python3
-        - python3-pip
-        - python3-pytz
-        - python3-scipy
-        - python3-numpy
-        - python3-setuptools
-        - python3-dateutil
-        - python3-six
-        - python3-urllib3
-        - python3-defusedxml
-        - python3-yaml
         - cppzmq-devel
-        - gzip
-        - python3-pylibacl
         - libacl
-        - python3-mypy
-aminer_usershell: /usr/sbin/nologin
-aminer_pythonpath: ['/usr/lib/python3.9/site-packages', '/usr/lib64/python3.9/site-packages', '/usr/local/lib64/python3.9/site-packages', '/usr/local/lib/python3.9/site-packages']
+        - gcc
