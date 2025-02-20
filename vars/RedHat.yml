@@ -2,3 +2,4 @@ aminer_packages:
         - cppzmq-devel
         - libacl
         - gcc
+        - python3-mypy
