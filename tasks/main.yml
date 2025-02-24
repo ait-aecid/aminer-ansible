@@ -88,19 +88,19 @@
 
 - name: Create remote control link
   file:
-    src: "/usr/lib/logdata-anomaly-miner/aminerremotecontrol.py"
+    src: "/usr/lib/logdata-anomaly-miner/scripts/aminerwrapper.sh"
     dest: "/usr/bin/aminerremotecontrol"
     state: "link"
 
 - name: Create aminer link
   file:
-    src: "/usr/lib/logdata-anomaly-miner/aminer.py"
+    src: "/usr/lib/logdata-anomaly-miner/scripts/aminerwrapper.sh"
     dest: "/usr/bin/aminer"
     state: "link"
 
 - name: Create aminer-persistence link
   file:
-    src: "/usr/lib/logdata-anomaly-miner/aminer-persistence.py"
+    src: "/usr/lib/logdata-anomaly-miner/scripts/aminerwrapper.sh"
     dest: "/usr/bin/aminer-persistence"
     state: "link"
  
@@ -117,9 +117,9 @@
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
-- name: Install pyzmq
+- name: Install zmq
   pip:
-    name: pyzmq
+    name: zmq
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
@@ -231,12 +231,6 @@
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
   when: ansible_distribution != "RedHat"
-
-- name: Install mypy
-  pip:
-    name: mypy
-    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
-    state: latest
 
 - name: Install pytz
   pip:

@@ -3,3 +3,4 @@ aminer_packages:
         - xsltproc
         - docbook-xsl
         - libacl1-dev
+        - mypy

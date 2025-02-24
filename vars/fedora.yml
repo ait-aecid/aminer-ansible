@@ -5,4 +5,5 @@ aminer_packages:
         - libacl-devel
         - gcc
         - python3-devel
+        - python3-mypy
 aminer_docbookxslpath: "/usr/share/sgml/docbook/xsl-stylesheets-1.79.2/html/docbook.xsl"
