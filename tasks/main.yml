@@ -73,6 +73,11 @@
     src: "{{aminer_repopath}}/source/root/usr/share/doc/"
     dest: "/usr/share/doc/"
 
+- name: copy aminerwrapper
+  copy:
+    src: "{{aminer_repopath}}/scripts/aminerwrapper.sh"
+    dest: "/usr/bin/aminerwrapper.sh"
+
 - name: Create aminer-user
   user:
     name: "{{aminer_user}}"
@@ -88,19 +93,19 @@
 
 - name: Create remote control link
   file:
-    src: "/usr/lib/logdata-anomaly-miner/scripts/aminerwrapper.sh"
+    src: "/usr/bin/aminerwrapper.sh"
     dest: "/usr/bin/aminerremotecontrol"
     state: "link"
 
 - name: Create aminer link
   file:
-    src: "/usr/lib/logdata-anomaly-miner/scripts/aminerwrapper.sh"
+    src: "/usr/bin/aminerwrapper.sh"
     dest: "/usr/bin/aminer"
     state: "link"
 
 - name: Create aminer-persistence link
   file:
-    src: "/usr/lib/logdata-anomaly-miner/scripts/aminerwrapper.sh"
+    src: "/usr/bin/aminerwrapper.sh"
     dest: "/usr/bin/aminer-persistence"
     state: "link"
  
