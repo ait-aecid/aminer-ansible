@@ -264,6 +264,13 @@
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
+- name: Set venv activate permissions
+  file:
+    path: "/usr/lib/logdata-anomaly-miner/.venv/bin/activate"
+    owner: root
+    group: root
+    mode: 0755
+
 - name: Create man-page for aminer
   shell:
     cmd: xsltproc --output /usr/share/man/man1/aminer.1  -''-nonet -''-param man.charmap.use.subset "0" -''-param make.year.ranges "1" -''-param make.single.year.ranges "1" {{aminer_docbookxslpath}} {{aminer_repopath}}/docs/manpages/aminer.1.xml && gzip /usr/share/man/man1/aminer.1
