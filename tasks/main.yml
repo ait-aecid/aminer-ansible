@@ -78,6 +78,13 @@
     src: "{{aminer_repopath}}/scripts/aminerwrapper.sh"
     dest: "/usr/local/bin/aminerwrapper.sh"
 
+- name: Set aminerwrapper permissions
+  file:
+    path: "/usr/local/bin/aminerwrapper.sh"
+    owner: root
+    group: root
+    mode: 0755
+
 - name: Create aminer-user
   user:
     name: "{{aminer_user}}"
@@ -112,6 +119,20 @@
 - name: Set aminer permissions
   file:
     path: "/usr/lib/logdata-anomaly-miner/aminer.py"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Set aminerremotecontrol permissions
+  file:
+    path: "/usr/lib/logdata-anomaly-miner/aminerremotecontrol.py"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Set aminer-persistence permissions
+  file:
+    path: "/usr/lib/logdata-anomaly-miner/aminer-persistence.py"
     owner: root
     group: root
     mode: 0755
@@ -242,6 +263,13 @@
     name: pytz
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
+
+- name: Set venv activate permissions
+  file:
+    path: "/usr/lib/logdata-anomaly-miner/.venv/bin/activate"
+    owner: root
+    group: root
+    mode: 0755
 
 - name: Create man-page for aminer
   shell:
