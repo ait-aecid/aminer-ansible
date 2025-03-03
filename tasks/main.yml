@@ -221,12 +221,6 @@
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
-- name: Install kafka
-  pip:
-    name: kafka
-    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
-    state: latest
-
 - name: Install urllib3
   pip:
     name: urllib3
