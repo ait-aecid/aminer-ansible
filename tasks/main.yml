@@ -138,123 +138,123 @@
     mode: 0755
 
 - name: Install orjson
-  pip:
+  moreati.uv.pip:
     name: orjson
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install zmq
-  pip:
+  moreati.uv.pip:
     name: zmq
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install python3-cerberus
-  pip:
+  moreati.uv.pip:
     name: cerberus
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: pip self-update
-  pip:
+  moreati.uv.pip:
     name: pip
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install python3-kafka
-  pip:
+  moreati.uv.pip:
     name: kafka-python
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: present
     version: 2.0.6
 
 - name: Install python3-patsy
-  pip:
+  moreati.uv.pip:
     name: patsy
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install python3-statsmodels
-  pip:
+  moreati.uv.pip:
     name: statsmodels
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install importlib-metadata
-  pip:
+  moreati.uv.pip:
     name: importlib-metadata
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install tz
-  pip:
+  moreati.uv.pip:
     name: tz
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install scipy
-  pip:
+  moreati.uv.pip:
     name: scipy
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install numpy
-  pip:
+  moreati.uv.pip:
     name: numpy
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install setuptools
-  pip:
+  moreati.uv.pip:
     name: setuptools
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install python-dateutil
-  pip:
+  moreati.uv.pip:
     name: python-dateutil
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install six
-  pip:
+  moreati.uv.pip:
     name: six
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install urllib3
-  pip:
+  moreati.uv.pip:
     name: urllib3
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install defusedxml
-  pip:
+  moreati.uv.pip:
     name: defusedxml
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install PyYAML
-  pip:
+  moreati.uv.pip:
     name: PyYAML
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install patsy
-  pip:
+  moreati.uv.pip:
     name: patsy
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install pylibacl
-  pip:
+  moreati.uv.pip:
     name: pylibacl
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
   when: ansible_distribution != "RedHat"
 
 - name: Install pytz
-  pip:
+  moreati.uv.pip:
     name: pytz
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
