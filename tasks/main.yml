@@ -166,7 +166,7 @@
     name: kafka-python
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: present
-    version: 2.0.6
+    version: latest
 
 - name: Install python3-patsy
   pip:
