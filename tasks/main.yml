@@ -144,120 +144,169 @@
     state: latest
 
 - name: Install zmq
-  moreati.uv.pip:
+  pip:
     name: zmq
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install python3-cerberus
-  moreati.uv.pip:
+  pip:
     name: cerberus
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: pip self-update
-  moreati.uv.pip:
+  pip:
     name: pip
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install python3-kafka
-  moreati.uv.pip:
+  pip:
     name: kafka-python
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: present
     version: 2.0.6
 
 - name: Install python3-patsy
-  moreati.uv.pip:
+  pip:
     name: patsy
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install python3-statsmodels
-  moreati.uv.pip:
+  pip:
     name: statsmodels
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install importlib-metadata
-  moreati.uv.pip:
+  pip:
     name: importlib-metadata
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install tz
-  moreati.uv.pip:
+  pip:
     name: tz
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install scipy
-  moreati.uv.pip:
+  pip:
     name: scipy
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install numpy
-  moreati.uv.pip:
+  pip:
     name: numpy
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install setuptools
-  moreati.uv.pip:
+  pip:
     name: setuptools
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install python-dateutil
-  moreati.uv.pip:
+  pip:
     name: python-dateutil
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install six
-  moreati.uv.pip:
+  pip:
     name: six
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install urllib3
-  moreati.uv.pip:
+  pip:
     name: urllib3
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install defusedxml
-  moreati.uv.pip:
+  pip:
     name: defusedxml
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install PyYAML
-  moreati.uv.pip:
+  pip:
     name: PyYAML
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install patsy
-  moreati.uv.pip:
+  pip:
     name: patsy
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
 
 - name: Install pylibacl
-  moreati.uv.pip:
+  pip:
     name: pylibacl
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
   when: ansible_distribution != "RedHat"
 
 - name: Install pytz
-  moreati.uv.pip:
+  pip:
     name: pytz
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
+
+- name: Install fastapi
+  pip:
+    name: fastapi
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+
+- name: Install python-jose
+  pip:
+    name: python-jose
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+
+- name: Install passlib
+  pip:
+    name: passlib
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+
+- name: Install pydantic
+  pip:
+    name: pydantic
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+
+- name: Install httpx
+  pip:
+    name: httpx
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+
+- name: Install uvicorn
+  pip:
+    name: uvicorn
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+
+- name: Install python-multipart
+  pip:
+    name: python-multipart
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
 
 - name: Set venv activate permissions
   file:
