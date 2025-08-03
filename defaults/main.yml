@@ -14,4 +14,4 @@ aminer_user: "aminer"
 aminer_group: "aminer"
 aminer_docbookxslpath: "/usr/share/xml/docbook/stylesheet/docbook-xsl/manpages/docbook.xsl"
 aminer_usershell: /usr/sbin/nologin
-aminerrest_repopath: null
+aminerrest_repopath: False
