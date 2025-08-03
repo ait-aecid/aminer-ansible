@@ -264,49 +264,49 @@
     name: fastapi
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
-  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+  when: aminerrest_repopath != False
 
 - name: Install python-jose
   pip:
     name: python-jose
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
-  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+  when: aminerrest_repopath != False
 
 - name: Install passlib
   pip:
     name: passlib
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
-  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+  when: aminerrest_repopath != False
 
 - name: Install pydantic
   pip:
     name: pydantic
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
-  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+  when: aminerrest_repopath != False
 
 - name: Install httpx
   pip:
     name: httpx
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
-  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+  when: aminerrest_repopath != False
 
 - name: Install uvicorn
   pip:
     name: uvicorn
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
-  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+  when: aminerrest_repopath != False
 
 - name: Install python-multipart
   pip:
     name: python-multipart
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
-  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+  when: aminerrest_repopath != False
 
 - name: Set venv activate permissions
   file:
