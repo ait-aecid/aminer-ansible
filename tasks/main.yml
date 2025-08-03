@@ -138,7 +138,7 @@
     mode: 0755
 
 - name: Install orjson
-  pip:
+  moreati.uv.pip:
     name: orjson
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
@@ -258,6 +258,55 @@
     name: pytz
     virtualenv: /usr/lib/logdata-anomaly-miner/.venv
     state: latest
+
+- name: Install fastapi
+  pip:
+    name: fastapi
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+
+- name: Install python-jose
+  pip:
+    name: python-jose
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+
+- name: Install passlib
+  pip:
+    name: passlib
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+
+- name: Install pydantic
+  pip:
+    name: pydantic
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+
+- name: Install httpx
+  pip:
+    name: httpx
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+
+- name: Install uvicorn
+  pip:
+    name: uvicorn
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
+
+- name: Install python-multipart
+  pip:
+    name: python-multipart
+    virtualenv: /usr/lib/logdata-anomaly-miner/.venv
+    state: latest
+  when: aminerrest_repopath is defined and aminerrest_repopath | length > 0
 
 - name: Set venv activate permissions
   file:
