@@ -55,7 +55,7 @@
   synchronize:
     group: no
     owner: no
-    src: "{{aminer_repopath}}/source/root/lib/systemd/system/aminer.service"
+    src: "{{aminer_repopath}}/source/root/usr/lib/systemd/system/aminer.service"
     dest: "{{aminer_systemdloc}}"
 
 - name: Synchronize Aminer-libdir
